@@ -1,0 +1,124 @@
+<div class="scrollable-wrapper">
+<div class="messages-container">
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <!-- Conversation View -->
+  <div *ngIf="!showConversationList" class="conversation-view">
+    <!-- Conversation Header -->
+    <div class="conversation-header">
+      <button (click)="backToConversationList()" class="back-btn">← Back</button>
+      <h2>{{ selectedConversation?.name || 'Conversation' }}</h2>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading messages...</p>
+    </div>
+
+    <!-- Messages List -->
+    <div *ngIf="!loading && conversationMessages.length > 0" class="messages-list">
+      <div *ngFor="let msg of conversationMessages" class="message-item" [ngClass]="{'sent': msg.isRead, 'received': !msg.isRead}">
+        <div class="message-bubble">
+          <p>{{ msg.content }}</p>
+          <span class="timestamp">{{ msg.createdAt | date: 'short' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty Conversation State -->
+    <div *ngIf="!loading && conversationMessages.length === 0" class="empty-conversation">
+      <p>No messages yet. Start the conversation!</p>
+    </div>
+
+    <!-- Message Input -->
+    <div class="message-input-area">
+      <textarea
+        [(ngModel)]="currentMessage"
+        placeholder="Type your message here..."
+        (keyup.enter)="sendMessage()"
+        class="message-input"
+        rows="2"
+      ></textarea>
+      <button (click)="sendMessage()" [disabled]="!currentMessage.trim() || loading" class="btn-send">
+        Send
+      </button>
+    </div>
+  </div>
+
+  <!-- Conversation List View -->
+  <div *ngIf="showConversationList" class="conversation-list-view">
+    <!-- Header -->
+    <div class="page-header">
+      <h1>Messages</h1>
+      <p class="subtitle">Chat with your doctors</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading messages...</p>
+    </div>
+
+    <!-- Messages List -->
+    <div *ngIf="!loading && messages.length > 0" class="conversations-list">
+      <div
+        *ngFor="let message of messages"
+        (click)="selectConversation(message.senderId, message.senderName)"
+        class="conversation-item"
+      >
+        <div class="conversation-avatar">👨‍⚕️</div>
+        <div class="conversation-info">
+          <h3>{{ message.senderName }}</h3>
+          <p class="preview">{{ message.content | slice:0:50 }}...</p>
+        </div>
+        <div class="conversation-meta">
+          <p class="timestamp">{{ message.createdAt | date: 'short' }}</p>
+          <div *ngIf="!message.isRead" class="unread-badge">New</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && messages.length === 0" class="empty-state">
+      <div class="empty-icon">💬</div>
+      <h2>No messages yet</h2>
+      <p>Your conversations with doctors will appear here</p>
+    </div>
+
+    <!-- Pagination -->
+    <div *ngIf="!loading && totalPages > 1" class="pagination">
+      <button
+        (click)="previousPage()"
+        [disabled]="currentPage === 0"
+        class="btn-pagination"
+      >
+        ← Previous
+      </button>
+      <span class="page-info">
+        Page {{ currentPage + 1 }} of {{ totalPages }}
+      </span>
+      <button
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages - 1"
+        class="btn-pagination"
+      >
+        Next →
+      </button>
+    </div>
+  </div>
+</div>
+</div>

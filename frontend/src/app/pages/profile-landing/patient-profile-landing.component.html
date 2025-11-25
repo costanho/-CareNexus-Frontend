@@ -1,0 +1,129 @@
+<div class="scrollable-wrapper">
+  <!-- PROFILE SECTION -->
+  <div class="profile-section">
+    <div class="profile-container">
+      <!-- Profile Card -->
+      <div class="profile-card">
+        <!-- Avatar -->
+        <div class="profile-avatar" [style.background-color]="getAvatarColor()">
+          {{ getInitials() }}
+        </div>
+
+        <!-- Profile Info -->
+        <div class="profile-info">
+          <h1>{{ currentUser?.fullName }}</h1>
+          <p class="profile-email">{{ currentUser?.email }}</p>
+          <div class="role-badge">
+            <span class="badge-icon">👤</span>
+            <span class="badge-text">Patient</span>
+          </div>
+        </div>
+
+        <!-- Profile Actions -->
+        <div class="profile-actions">
+          <button class="btn-edit" (click)="handleQuickAction('editProfile')">
+            Edit Profile
+          </button>
+          <button class="btn-settings" (click)="handleQuickAction('settings')">
+            Settings
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="stats-grid">
+        <div *ngFor="let stat of stats" class="stat-card">
+          <div class="stat-icon" [style.color]="stat.color">
+            {{ stat.icon }}
+          </div>
+          <div class="stat-content">
+            <div class="stat-value">{{ stat.value }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK ACTIONS SECTION -->
+  <div class="quick-actions-section">
+    <div class="quick-actions-container">
+      <h2>Quick Access</h2>
+      <div class="quick-actions-grid">
+        <button *ngFor="let action of quickActions"
+                class="quick-action-btn"
+                (click)="handleQuickAction(action.action)">
+          <span class="action-icon">{{ action.icon }}</span>
+          <span class="action-label">{{ action.label }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES SECTION -->
+  <div class="services-section">
+    <div class="services-container">
+      <div class="section-header">
+        <h2>Available Services</h2>
+        <p>Choose a service to explore</p>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="services-grid">
+        <div *ngFor="let service of availableServices"
+             class="service-card"
+             (click)="selectService(service)">
+
+          <!-- Card Header with Icon -->
+          <div class="card-header">
+            <span class="service-icon">{{ service.icon }}</span>
+            <h3>{{ service.name }}</h3>
+          </div>
+
+          <!-- Card Description -->
+          <p class="service-description">
+            {{ service.description }}
+          </p>
+
+          <!-- Card Features List -->
+          <div class="service-features">
+            <ul>
+              <li *ngFor="let feature of service.features">
+                <span class="feature-check">✓</span>
+                {{ feature }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card Action Button -->
+          <div class="card-footer">
+            <button class="btn-select">
+              Get Started →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECENT ACTIVITY SECTION -->
+  <div class="activity-section">
+    <div class="activity-container">
+      <div class="section-header">
+        <h2>Recent Activity</h2>
+        <p>Your latest updates</p>
+      </div>
+
+      <div class="activity-list">
+        <div *ngFor="let activity of recentActivity" class="activity-item" [ngClass]="'status-' + activity.status">
+          <div class="activity-icon">{{ activity.icon }}</div>
+          <div class="activity-content">
+            <h4>{{ activity.title }}</h4>
+            <p>{{ activity.description }}</p>
+            <span class="activity-date">{{ activity.date }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

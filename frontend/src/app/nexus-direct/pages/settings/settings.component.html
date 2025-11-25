@@ -1,0 +1,196 @@
+<div class="scrollable-wrapper">
+<div class="settings-container">
+  <div class="settings-header">
+    <h1>Settings</h1>
+    <p class="subtitle">Manage your account preferences</p>
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="saveSuccess" class="success-message">
+    {{ saveSuccess }}
+  </div>
+
+  <div class="settings-content">
+    <!-- Notifications Section -->
+    <div class="settings-section">
+      <h2>🔔 Notifications</h2>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Email Notifications</label>
+          <p>Receive updates via email</p>
+        </div>
+        <input type="checkbox" [(ngModel)]="notifications.email" class="toggle" />
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>SMS Notifications</label>
+          <p>Receive updates via text message</p>
+        </div>
+        <input type="checkbox" [(ngModel)]="notifications.sms" class="toggle" />
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Appointment Reminders</label>
+          <p>Get notified before appointments</p>
+        </div>
+        <input type="checkbox" [(ngModel)]="notifications.appointments" class="toggle" />
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Message Notifications</label>
+          <p>Get notified about new messages</p>
+        </div>
+        <input type="checkbox" [(ngModel)]="notifications.messages" class="toggle" />
+      </div>
+    </div>
+
+    <!-- Preferences Section -->
+    <div class="settings-section">
+      <h2>⚙️ Preferences</h2>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Theme</label>
+          <p>Choose your preferred theme</p>
+        </div>
+        <select [(ngModel)]="preferences.theme" class="select-input">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="auto">Auto</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Language</label>
+          <p>Select your preferred language</p>
+        </div>
+        <select [(ngModel)]="preferences.language" class="select-input">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Time Format</label>
+          <p>Choose 12-hour or 24-hour format</p>
+        </div>
+        <select [(ngModel)]="preferences.timeFormat" class="select-input">
+          <option value="12h">12-hour (AM/PM)</option>
+          <option value="24h">24-hour</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Privacy Section -->
+    <div class="settings-section">
+      <h2>🔒 Privacy</h2>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Profile Visibility</label>
+          <p>Control who can see your profile</p>
+        </div>
+        <select [(ngModel)]="privacy.profileVisibility" class="select-input">
+          <option value="public">Public</option>
+          <option value="private">Private</option>
+          <option value="friends">Friends Only</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Show Email Address</label>
+          <p>Allow doctors to see your email</p>
+        </div>
+        <input type="checkbox" [(ngModel)]="privacy.showEmail" class="toggle" />
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Show Phone Number</label>
+          <p>Allow doctors to see your phone</p>
+        </div>
+        <input type="checkbox" [(ngModel)]="privacy.showPhone" class="toggle" />
+      </div>
+    </div>
+
+    <!-- Security Section -->
+    <div class="settings-section">
+      <h2>🔐 Security</h2>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Change Password</label>
+          <p>Update your account password</p>
+        </div>
+        <button (click)="resetPassword()" class="btn-action">
+          Change Password
+        </button>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Two-Factor Authentication</label>
+          <p>Add extra security to your account</p>
+        </div>
+        <button (click)="twoFactorToggle()" class="btn-action">
+          Enable 2FA
+        </button>
+      </div>
+    </div>
+
+    <!-- Data Section -->
+    <div class="settings-section">
+      <h2>📊 Data</h2>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Export Your Data</label>
+          <p>Download your data as a JSON file</p>
+        </div>
+        <button (click)="exportData()" class="btn-action">
+          Export Data
+        </button>
+      </div>
+    </div>
+
+    <!-- Session Section -->
+    <div class="settings-section">
+      <h2>📱 Sessions</h2>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Logout Current Session</label>
+          <p>Sign out from this device</p>
+        </div>
+        <button (click)="logout()" class="btn-action secondary">
+          Logout
+        </button>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Logout All Devices</label>
+          <p>Sign out from all devices</p>
+        </div>
+        <button (click)="logoutAllDevices()" class="btn-action secondary">
+          Logout All
+        </button>
+      </div>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="settings-section danger">
+      <h2>⚠️ Danger Zone</h2>
+      <div class="setting-item">
+        <div class="setting-info">
+          <label>Delete Account</label>
+          <p>Permanently delete your account and all data</p>
+        </div>
+        <button (click)="deleteAccount()" class="btn-action danger">
+          Delete Account
+        </button>
+      </div>
+    </div>
+
+    <!-- Save Button -->
+    <div class="settings-actions">
+      <button (click)="saveSettings()" class="btn-save">
+        💾 Save All Settings
+      </button>
+    </div>
+  </div>
+</div>
+</div>

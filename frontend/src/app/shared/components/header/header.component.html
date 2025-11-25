@@ -1,0 +1,54 @@
+<header class="app-header">
+  <div class="header-container">
+    <!-- Logo -->
+    <div class="logo">
+      <a routerLink="/dashboard">
+        <span class="logo-icon">🏥</span>
+        <span class="logo-text">CareNexus</span>
+      </a>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="header-nav">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        Dashboard
+      </a>
+      <a routerLink="/doctors" routerLinkActive="active">
+        Doctors
+      </a>
+      <a routerLink="/appointments" routerLinkActive="active">
+        Appointments
+      </a>
+      <a routerLink="/messages" routerLinkActive="active">
+        Messages
+      </a>
+    </nav>
+
+    <!-- User Menu -->
+    <div class="user-section">
+      <button (click)="toggleUserMenu()" class="user-button">
+        <span class="user-avatar">👤</span>
+        <span class="user-name">{{ currentUser?.name || 'User' }}</span>
+        <span class="dropdown-arrow">▼</span>
+      </button>
+
+      <!-- Dropdown Menu -->
+      <div *ngIf="showUserMenu" class="user-dropdown">
+        <div class="dropdown-item">
+          <strong>{{ currentUser?.email }}</strong>
+        </div>
+        <div class="dropdown-divider"></div>
+        <a routerLink="/profile" class="dropdown-item">
+          👤 Profile
+        </a>
+        <a routerLink="/settings" class="dropdown-item">
+          ⚙️ Settings
+        </a>
+        <div class="dropdown-divider"></div>
+        <button (click)="logout()" class="dropdown-item logout">
+          🚪 Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

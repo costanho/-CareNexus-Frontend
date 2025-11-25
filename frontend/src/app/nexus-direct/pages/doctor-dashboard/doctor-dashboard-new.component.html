@@ -1,0 +1,190 @@
+<div class="scrollable-wrapper">
+<!-- HEADER SECTION -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-left">
+      <button class="back-btn" (click)="backToProfile()">← Back to Profile</button>
+      <h1>Nexus Direct - Doctor Dashboard</h1>
+      <p>Manage your patient appointments and consultations</p>
+    </div>
+    <div class="header-right">
+      <button class="settings-btn" (click)="goToSettings()">⚙️ Settings</button>
+    </div>
+  </div>
+</div>
+
+<!-- STATS SECTION -->
+<div class="stats-section">
+  <div class="stats-container">
+    <div *ngFor="let stat of stats" class="stat-card">
+      <div class="stat-icon" [style.color]="stat.color">{{ stat.icon }}</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+  <!-- TAB NAVIGATION -->
+  <div class="tab-navigation">
+    <button [class.active]="activeTab === 'appointments'" (click)="switchTab('appointments')">
+      📅 Appointments ({{ upcomingAppointments.length }})
+    </button>
+    <button [class.active]="activeTab === 'patients'" (click)="switchTab('patients')">
+      👥 My Patients ({{ patients.length }})
+    </button>
+    <button [class.active]="activeTab === 'consultations'" (click)="switchTab('consultations')">
+      👨‍⚕️ Consultations
+    </button>
+    <button [class.active]="activeTab === 'messages'" (click)="switchTab('messages')">
+      💬 Messages ({{ getUnreadMessageCount() }})
+    </button>
+  </div>
+
+  <!-- APPOINTMENTS TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'appointments'">
+    <div class="section-header">
+      <h2>Today's Appointments</h2>
+      <p>Manage your scheduled patient consultations</p>
+    </div>
+
+    <div class="appointments-list">
+      <div *ngFor="let appointment of upcomingAppointments" class="appointment-card" [ngClass]="'status-' + appointment.status">
+        <div class="appointment-header">
+          <span class="patient-avatar">{{ appointment.patientAvatar }}</span>
+          <div class="appointment-info">
+            <h3>{{ appointment.patientName }}</h3>
+            <p>{{ appointment.condition }}</p>
+          </div>
+          <span class="status-badge" [ngClass]="appointment.status">{{ appointment.status | uppercase }}</span>
+        </div>
+
+        <div class="appointment-details">
+          <div class="detail">
+            <span class="icon">📅</span>
+            <span>{{ appointment.date }} • {{ appointment.time }}</span>
+          </div>
+          <div class="detail">
+            <span class="icon">⏱️</span>
+            <span>{{ appointment.duration }} • {{ appointment.type }}</span>
+          </div>
+        </div>
+
+        <div class="appointment-actions">
+          <button class="btn-primary" (click)="startConsultation(appointment)">Start Consultation</button>
+          <button class="btn-secondary" (click)="rescheduleAppointment(appointment)">Reschedule</button>
+          <button class="btn-secondary" (click)="completeAppointment(appointment)">Complete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATIENTS TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'patients'">
+    <div class="section-header">
+      <h2>Your Patients</h2>
+      <p>View and manage your patient records</p>
+    </div>
+
+    <div class="patients-grid">
+      <div *ngFor="let patient of patients" class="patient-card">
+        <div class="patient-header">
+          <span class="patient-avatar">{{ patient.avatar }}</span>
+          <div class="patient-info">
+            <h3>{{ patient.name }}</h3>
+            <p>Age: {{ patient.age }} • {{ patient.condition }}</p>
+          </div>
+          <span class="status-badge" [ngClass]="patient.status.toLowerCase()">{{ patient.status }}</span>
+        </div>
+
+        <div class="patient-details">
+          <div class="detail-item">
+            <strong>Last Visit:</strong>
+            <span>{{ patient.lastVisit }}</span>
+          </div>
+          <div class="detail-item">
+            <strong>Risk Level:</strong>
+            <span class="risk-badge" [ngClass]="patient.riskLevel.toLowerCase()">{{ patient.riskLevel }}</span>
+          </div>
+        </div>
+
+        <div class="patient-actions">
+          <button class="btn-primary" (click)="viewPatientProfile(patient)">View Profile</button>
+          <button class="btn-secondary" (click)="addPrescription(patient)">Add Prescription</button>
+          <button class="btn-secondary" (click)="reviewPatient(patient)">Review Records</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSULTATIONS TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'consultations'">
+    <div class="section-header">
+      <h2>Active Consultations</h2>
+      <p>Monitor ongoing and upcoming patient consultations</p>
+    </div>
+
+    <div class="consultations-list">
+      <div *ngFor="let consultation of consultations" class="consultation-card" [ngClass]="'status-' + consultation.status">
+        <div class="consultation-header">
+          <div class="status-indicator" [ngClass]="consultation.status"></div>
+          <span class="patient-avatar">{{ consultation.patientAvatar }}</span>
+          <div class="consultation-info">
+            <h3>{{ consultation.patientName }}</h3>
+            <p>{{ consultation.type }} • {{ consultation.startTime }}</p>
+          </div>
+          <span class="status-badge" [ngClass]="consultation.status">{{ consultation.status | uppercase }}</span>
+        </div>
+
+        <div class="consultation-body">
+          <p class="notes">{{ consultation.notes }}</p>
+          <p class="duration">Duration: {{ consultation.duration }}</p>
+        </div>
+
+        <div class="consultation-actions">
+          <button class="btn-primary"
+                  [disabled]="consultation.status === 'scheduled'"
+                  (click)="endConsultation(consultation)">
+            End Consultation
+          </button>
+          <button class="btn-secondary" (click)="viewPatientFile(consultation)">View Patient File</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MESSAGES TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'messages'">
+    <div class="section-header">
+      <h2>Patient Messages</h2>
+      <p>Review and respond to patient inquiries</p>
+    </div>
+
+    <div class="messages-list">
+      <div *ngFor="let message of patientMessages" class="message-card" [ngClass]="message.unread ? 'unread' : ''">
+        <div class="message-header">
+          <span class="patient-avatar">{{ message.patientAvatar }}</span>
+          <div class="message-info">
+            <h3>{{ message.patientName }}</h3>
+            <span class="timestamp">{{ message.timestamp }}</span>
+          </div>
+          <span class="priority-badge" [ngClass]="message.priority">{{ message.priority | uppercase }}</span>
+        </div>
+
+        <div class="message-content">
+          <p>{{ message.message }}</p>
+        </div>
+
+        <div class="message-actions">
+          <button class="btn-primary" (click)="replyMessage(message)">Reply</button>
+          <button class="btn-secondary" (click)="markAsRead(message)" *ngIf="message.unread">Mark as Read</button>
+          <button class="btn-secondary">Schedule Call</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

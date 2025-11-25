@@ -1,0 +1,130 @@
+<!-- SERVICE HEADER -->
+<app-service-header></app-service-header>
+
+<!-- DASHBOARD HEADER -->
+<div class="dashboard-header">
+  <div class="header-content">
+    <h1>Welcome, Dr. {{ currentUser?.fullName }}</h1>
+    <p>Manage your patients, appointments, and consultations</p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="dashboard-container">
+
+  <!-- STATS CARDS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-info">
+        <h3>{{ totalPatients }}</h3>
+        <p>Active Patients</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📅</div>
+      <div class="stat-info">
+        <h3>{{ todayAppointments }}</h3>
+        <p>Today's Appointments</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">💬</div>
+      <div class="stat-info">
+        <h3>{{ pendingMessages }}</h3>
+        <p>Patient Messages</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📋</div>
+      <div class="stat-info">
+        <h3>{{ totalAppointments }}</h3>
+        <p>Total Consultations</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="quick-actions">
+    <h2>Quick Actions</h2>
+    <div class="action-buttons">
+      <button class="action-btn">
+        <span class="icon">📅</span>
+        <span>My Schedule</span>
+      </button>
+      <button class="action-btn">
+        <span class="icon">👥</span>
+        <span>My Patients</span>
+      </button>
+      <button class="action-btn">
+        <span class="icon">💬</span>
+        <span>Messages</span>
+      </button>
+      <button class="action-btn">
+        <span class="icon">📊</span>
+        <span>Analytics</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- TWO COLUMN SECTION -->
+  <div class="dashboard-grid">
+
+    <!-- TODAY'S APPOINTMENTS -->
+    <div class="dashboard-section">
+      <h2>Today's Appointments</h2>
+      <div class="appointments-list">
+        <div *ngFor="let apt of todaysAppointments" class="appointment-card" [class.pending]="apt.status === 'Pending'">
+          <div class="apt-time">{{ apt.time }}</div>
+          <div class="apt-details">
+            <h3>{{ apt.patientName }}</h3>
+            <p class="reason">{{ apt.reason }}</p>
+            <span class="duration">⏱️ {{ apt.duration }}</span>
+          </div>
+          <div class="apt-status" [class]="apt.status.toLowerCase()">
+            {{ apt.status }}
+          </div>
+        </div>
+      </div>
+      <a href="#" class="link-more">Manage Schedule →</a>
+    </div>
+
+    <!-- PATIENT MESSAGES -->
+    <div class="dashboard-section">
+      <h2>Patient Messages</h2>
+      <div class="messages-list">
+        <div *ngFor="let msg of patientMessages" class="message-card" [class.unread]="msg.unread">
+          <div class="msg-header">
+            <h3>{{ msg.patientName }}</h3>
+            <span class="time">{{ msg.time }}</span>
+          </div>
+          <p class="msg-preview">{{ msg.message }}</p>
+        </div>
+      </div>
+      <a href="#" class="link-more">View All Messages →</a>
+    </div>
+  </div>
+
+  <!-- RECENT PATIENTS -->
+  <div class="dashboard-section">
+    <h2>Recent Patients</h2>
+    <div class="patients-list">
+      <div *ngFor="let patient of recentPatients" class="patient-row">
+        <div class="patient-name">{{ patient.name }}</div>
+        <div class="patient-info">
+          <span class="label">Last Visit:</span>
+          <span class="value">{{ patient.lastVisit }}</span>
+        </div>
+        <div class="patient-status" [class]="patient.status.toLowerCase().replace(' ', '-')">
+          {{ patient.status }}
+        </div>
+        <button class="btn-notes">📝</button>
+      </div>
+    </div>
+    <a href="#" class="link-more">View All Patients →</a>
+  </div>
+
+</div>

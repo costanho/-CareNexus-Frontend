@@ -1,0 +1,241 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink, Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PATIENT PROFILE LANDING PAGE
+// ═══════════════════════════════════════════════════════════════════════════
+//
+// Purpose: Role-specific landing page for patients after login
+//
+// Features:
+// 1. User profile section with avatar, name, role badge
+// 2. Quick stats (total appointments, doctors, messages)
+// 3. Available services grid with icons
+// 4. Recent activity section
+// 5. Quick action buttons
+//
+// Flow:
+// 1. User logs in → redirected to /patient/profile
+// 2. Component displays patient profile and available services
+// 3. User can click a service to navigate to that service's dashboard
+// 4. Or use quick actions to access profile/settings
+
+@Component({
+  selector: 'app-patient-profile-landing',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: './patient-profile-landing.component.html',
+  styleUrls: ['./patient-profile-landing.component.scss']
+})
+export class PatientProfileLandingComponent implements OnInit, OnDestroy {
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SECTION 1: COMPONENT STATE
+  // ─────────────────────────────────────────────────────────────────────────
+
+  currentUser: any = null;
+  currentRole: string | null = null;
+  destroy$ = new Subject<void>();
+
+  // Patient stats
+  stats = [
+    { label: 'Upcoming Appointments', value: '3', icon: '📅', color: '#667eea' },
+    { label: 'Connected Doctors', value: '5', icon: '👨‍⚕️', color: '#764ba2' },
+    { label: 'Unread Messages', value: '2', icon: '💬', color: '#f093fb' },
+    { label: 'Total Appointments', value: '12', icon: '✅', color: '#4caf50' }
+  ];
+
+  // Available services for patient
+  availableServices = [
+    {
+      id: 'carenexus-direct',
+      name: 'CareNexus Direct',
+      icon: '🏥',
+      description: 'Subscription-based primary care',
+      features: ['Find Doctors', 'Schedule Appointments', 'Message Doctors', 'View Records']
+    },
+    {
+      id: 'carenexus-connect',
+      name: 'CareNexus Connect',
+      icon: '🔗',
+      description: 'Third-party booking interface',
+      features: ['Multi-Provider Integration', 'Easy Scheduling', 'Unified Dashboard', 'Cross-Platform Support']
+    },
+    {
+      id: 'facilitexus-connect',
+      name: 'FacilitexusConnect',
+      icon: '🏢',
+      description: 'Institutional partner module',
+      features: ['Partner Network', 'Facility Access', 'Institutional Booking', 'Compliance Tracking']
+    },
+    {
+      id: 'carenexus-urgent',
+      name: 'CareNexus Urgent',
+      icon: '🚑',
+      description: 'Emergency triage & dispatch',
+      features: ['Emergency Response', 'Triage Assessment', 'Dispatch Services', '24/7 Availability']
+    },
+    {
+      id: 'carenexus-proxy',
+      name: 'CareNexus Proxy',
+      icon: '👨‍👩‍👧‍👦',
+      description: 'Care orchestration by others',
+      features: ['Delegate Care', 'Family Management', 'Proxy Access', 'Shared Records']
+    },
+    {
+      id: 'carenexus-learn',
+      name: 'CareNexus Learn',
+      icon: '📚',
+      description: 'Education & training hub',
+      features: ['Health Courses', 'Expert Guides', 'Wellness Training', 'Certification Programs']
+    },
+    {
+      id: 'carenexus-claims',
+      name: 'CareNexus Claims',
+      icon: '📋',
+      description: 'Insurance claim gateway',
+      features: ['Submit Claims', 'Track Status', 'Documentation', 'Insurance Integration']
+    },
+    {
+      id: 'carenexus-companion',
+      name: 'CareNexus Companion',
+      icon: '🤖',
+      description: 'AI-guided user experience layer',
+      features: ['AI Health Guidance', 'Symptom Check', 'Medication Reminders', '24/7 Support']
+    }
+  ];
+
+  // Quick actions
+  quickActions = [
+    { label: 'Edit Profile', icon: '✏️', action: 'editProfile' },
+    { label: 'My Appointments', icon: '📅', action: 'appointments' },
+    { label: 'Messages', icon: '💬', action: 'messages' },
+    { label: 'Settings', icon: '⚙️', action: 'settings' }
+  ];
+
+  // Recent activity
+  recentActivity = [
+    {
+      title: 'Appointment Confirmed',
+      description: 'Dr. Sarah Johnson - Cardiology',
+      date: 'Nov 25, 2025 • 2:00 PM',
+      icon: '✅',
+      status: 'confirmed'
+    },
+    {
+      title: 'New Message',
+      description: 'Dr. Michael Chen sent you a message',
+      date: 'Nov 21, 2025',
+      icon: '💬',
+      status: 'new'
+    },
+    {
+      title: 'Appointment Scheduled',
+      description: 'Dr. Emily Watson - General Checkup',
+      date: 'Nov 20, 2025',
+      icon: '📅',
+      status: 'scheduled'
+    }
+  ];
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SECTION 2: CONSTRUCTOR & LIFECYCLE
+  // ─────────────────────────────────────────────────────────────────────────
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    // Get current user and role
+    this.currentUser = this.authService.getCurrentUser();
+    this.currentRole = this.authService.getCurrentRole();
+
+    console.log('[PatientProfileLanding] User:', this.currentUser?.email);
+    console.log('[PatientProfileLanding] Role:', this.currentRole);
+
+    // Redirect to login if no role (user may not always be available)
+    // Accept both PATIENT and ROLE_PATIENT formats
+    if (!this.currentRole || (this.currentRole !== 'ROLE_PATIENT' && this.currentRole !== 'PATIENT')) {
+      console.warn('[PatientProfileLanding] Unauthorized access, redirecting to login');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Listen for logout
+    this.authService.currentUserRole$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(role => {
+        if (!role) {
+          this.router.navigate(['/login']);
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SECTION 3: SERVICE NAVIGATION
+  // ─────────────────────────────────────────────────────────────────────────
+
+  selectService(service: any): void {
+    console.log('[PatientProfileLanding] Selected service:', service.id);
+    const route = `/patient/${service.id}`;
+    localStorage.setItem('selectedService', service.id);
+    localStorage.setItem('selectedServiceName', service.name);
+    this.router.navigate([route]);
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SECTION 4: QUICK ACTIONS
+  // ─────────────────────────────────────────────────────────────────────────
+
+  handleQuickAction(action: string): void {
+    console.log('[PatientProfileLanding] Quick action:', action);
+
+    switch (action) {
+      case 'editProfile':
+        this.router.navigate(['/patient/nexus-direct/profile']);
+        break;
+      case 'appointments':
+        this.router.navigate(['/patient/nexus-direct/appointments']);
+        break;
+      case 'messages':
+        this.router.navigate(['/patient/nexus-direct/messages']);
+        break;
+      case 'settings':
+        this.router.navigate(['/patient/nexus-direct/settings']);
+        break;
+      default:
+        console.warn('[PatientProfileLanding] Unknown action:', action);
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SECTION 5: UTILITY METHODS
+  // ─────────────────────────────────────────────────────────────────────────
+
+  getInitials(): string {
+    const name = this.currentUser?.fullName || 'U';
+    return name
+      .split(' ')
+      .map((part: string) => part[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  }
+
+  getAvatarColor(): string {
+    const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4caf50'];
+    const charCode = this.currentUser?.email?.charCodeAt(0) || 0;
+    return colors[charCode % colors.length];
+  }
+}

@@ -1,0 +1,106 @@
+<div class="scrollable-wrapper">
+<div class="doctor-detail-container">
+  <!-- Back Button -->
+  <a routerLink="/doctors" class="back-btn">← Back to Doctors</a>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading doctor details...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error && !loading" class="error-message">
+    {{ error }}
+  </div>
+
+  <!-- Doctor Profile -->
+  <div *ngIf="doctor && !loading" class="doctor-profile">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="avatar">👨‍⚕️</div>
+      <div class="header-info">
+        <h1>{{ doctor.name }}</h1>
+        <p class="specialization">{{ doctor.specialization }}</p>
+        <p class="license">License #: {{ doctor.licenseNumber }}</p>
+      </div>
+    </div>
+
+    <!-- Profile Content -->
+    <div class="profile-content">
+      <!-- Left Column -->
+      <div class="info-section">
+        <h2>Professional Information</h2>
+
+        <div class="info-item">
+          <label>Specialization</label>
+          <p>{{ doctor.specialization }}</p>
+        </div>
+
+        <div class="info-item">
+          <label>License Number</label>
+          <p>{{ doctor.licenseNumber }}</p>
+        </div>
+
+        <div *ngIf="doctor.consultationFee" class="info-item">
+          <label>Consultation Fee</label>
+          <p class="fee">${{ doctor.consultationFee }}</p>
+        </div>
+
+        <div *ngIf="doctor.bio" class="info-item">
+          <label>Professional Bio</label>
+          <p>{{ doctor.bio }}</p>
+        </div>
+
+        <div class="info-item">
+          <label>Member Since</label>
+          <p>{{ doctor.createdAt | date: 'MMM d, yyyy' }}</p>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="actions-section">
+        <h2>Actions</h2>
+
+        <button [routerLink]="['/schedule-appointment', doctor.id]" class="btn-primary">
+          📅 Book Appointment
+        </button>
+
+        <button routerLink="/messages" class="btn-secondary">
+          💬 Send Message
+        </button>
+
+        <a routerLink="/doctors" class="btn-secondary">
+          👨‍⚕️ View Other Doctors
+        </a>
+      </div>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="additional-info">
+      <div class="info-card">
+        <h3>📍 Availability</h3>
+        <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
+        <p>Saturday: 10:00 AM - 2:00 PM</p>
+      </div>
+
+      <div class="info-card">
+        <h3>✅ Qualifications</h3>
+        <p>{{ doctor.specialization }}</p>
+        <p>License verified and active</p>
+      </div>
+
+      <div class="info-card">
+        <h3>💬 Patient Reviews</h3>
+        <p>⭐⭐⭐⭐⭐ 4.8/5 (120 reviews)</p>
+        <p>"Excellent doctor, very professional"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!doctor && !loading && !error" class="empty-state">
+    <p>Doctor not found</p>
+  </div>
+</div>
+</div>

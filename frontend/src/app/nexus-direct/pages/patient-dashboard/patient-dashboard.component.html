@@ -1,0 +1,127 @@
+<!-- SERVICE HEADER -->
+<app-service-header></app-service-header>
+
+<!-- DASHBOARD HEADER -->
+<div class="dashboard-header">
+  <div class="header-content">
+    <h1>Welcome Back, {{ currentUser?.fullName }}</h1>
+    <p>Manage your appointments, messages, and doctor connections</p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="dashboard-container">
+
+  <!-- STATS CARDS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📅</div>
+      <div class="stat-info">
+        <h3>{{ upcomingAppointments }}</h3>
+        <p>Upcoming Appointments</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">👨‍⚕️</div>
+      <div class="stat-info">
+        <h3>{{ totalDoctors }}</h3>
+        <p>Connected Doctors</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">💬</div>
+      <div class="stat-info">
+        <h3>{{ unreadMessages }}</h3>
+        <p>Unread Messages</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📋</div>
+      <div class="stat-info">
+        <h3>{{ totalAppointments }}</h3>
+        <p>Total Appointments</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="quick-actions">
+    <h2>Quick Actions</h2>
+    <div class="action-buttons">
+      <button class="action-btn" routerLink="/doctors">
+        <span class="icon">🔍</span>
+        <span>Find Doctors</span>
+      </button>
+      <button class="action-btn" routerLink="/appointments">
+        <span class="icon">📅</span>
+        <span>My Appointments</span>
+      </button>
+      <button class="action-btn" routerLink="/messages">
+        <span class="icon">💬</span>
+        <span>Messages</span>
+      </button>
+      <button class="action-btn" routerLink="/profile">
+        <span class="icon">👤</span>
+        <span>My Profile</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- TWO COLUMN SECTION -->
+  <div class="dashboard-grid">
+
+    <!-- UPCOMING APPOINTMENTS -->
+    <div class="dashboard-section">
+      <h2>Upcoming Appointments</h2>
+      <div class="appointments-list">
+        <div *ngFor="let apt of appointments" class="appointment-card">
+          <div class="apt-icon">{{ apt.icon }}</div>
+          <div class="apt-details">
+            <h3>{{ apt.doctorName }}</h3>
+            <p class="specialization">{{ apt.specialization }}</p>
+            <p class="datetime">{{ apt.date }} at {{ apt.time }}</p>
+            <span class="status">{{ apt.status }}</span>
+          </div>
+          <div class="apt-actions">
+            <button class="btn-icon">✏️</button>
+            <button class="btn-icon">❌</button>
+          </div>
+        </div>
+      </div>
+      <a routerLink="/appointments" class="link-more">View All →</a>
+    </div>
+
+    <!-- RECENT MESSAGES -->
+    <div class="dashboard-section">
+      <h2>Recent Messages</h2>
+      <div class="messages-list">
+        <div *ngFor="let msg of recentMessages" class="message-card" [class.unread]="msg.unread">
+          <div class="msg-header">
+            <h3>{{ msg.doctorName }}</h3>
+            <span class="time">{{ msg.time }}</span>
+          </div>
+          <p class="msg-preview">{{ msg.lastMessage }}</p>
+        </div>
+      </div>
+      <a routerLink="/messages" class="link-more">View All →</a>
+    </div>
+  </div>
+
+  <!-- RECENT DOCTORS -->
+  <div class="dashboard-section">
+    <h2>Your Doctors</h2>
+    <div class="doctors-grid">
+      <div *ngFor="let doctor of recentDoctors" class="doctor-card">
+        <div class="doctor-icon">{{ doctor.icon }}</div>
+        <h3>{{ doctor.name }}</h3>
+        <p>{{ doctor.specialization }}</p>
+        <button class="btn-message" routerLink="/messages">Message</button>
+      </div>
+    </div>
+    <a routerLink="/doctors" class="link-more">Find More Doctors →</a>
+  </div>
+
+</div>

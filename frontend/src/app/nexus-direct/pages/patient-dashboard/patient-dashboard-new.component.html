@@ -1,0 +1,169 @@
+<!-- HEADER SECTION -->
+<div class="dashboard-header">
+  <div class="header-content">
+    <div class="header-left">
+      <button class="back-btn" (click)="backToProfile()">← Back to Profile</button>
+      <h1>Nexus Direct - Patient Dashboard</h1>
+      <p>Manage your healthcare appointments and doctors</p>
+    </div>
+    <div class="header-right">
+      <button class="settings-btn" (click)="goToSettings()">⚙️ Settings</button>
+    </div>
+  </div>
+</div>
+
+<!-- STATS SECTION -->
+<div class="stats-section">
+  <div class="stats-container">
+    <div *ngFor="let stat of stats" class="stat-card">
+      <div class="stat-icon" [style.color]="stat.color">{{ stat.icon }}</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+  <!-- TAB NAVIGATION -->
+  <div class="tab-navigation">
+    <button [class.active]="activeTab === 'appointments'" (click)="switchTab('appointments')">
+      📅 Appointments ({{ upcomingAppointments.length }})
+    </button>
+    <button [class.active]="activeTab === 'doctors'" (click)="switchTab('doctors')">
+      👨‍⚕️ Find Doctors
+    </button>
+    <button [class.active]="activeTab === 'messages'" (click)="switchTab('messages')">
+      💬 Messages ({{ recentMessages.length }})
+    </button>
+    <button [class.active]="activeTab === 'records'" (click)="switchTab('records')">
+      📋 Medical Records
+    </button>
+  </div>
+
+  <!-- APPOINTMENTS TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'appointments'">
+    <div class="section-header">
+      <h2>Your Appointments</h2>
+      <p>Manage your healthcare appointments</p>
+    </div>
+
+    <div class="appointments-list">
+      <div *ngFor="let appointment of upcomingAppointments" class="appointment-card" [ngClass]="'status-' + appointment.status">
+        <div class="appointment-header">
+          <span class="doctor-avatar">{{ appointment.avatar }}</span>
+          <div class="appointment-info">
+            <h3>{{ appointment.doctorName }}</h3>
+            <p>{{ appointment.specialty }}</p>
+          </div>
+          <span class="status-badge" [ngClass]="appointment.status">{{ appointment.status | uppercase }}</span>
+        </div>
+
+        <div class="appointment-details">
+          <div class="detail">
+            <span class="icon">📅</span>
+            <span>{{ appointment.date }}</span>
+          </div>
+          <div class="detail">
+            <span class="icon">🕐</span>
+            <span>{{ appointment.time }}</span>
+          </div>
+        </div>
+
+        <div class="appointment-actions">
+          <button class="btn-primary">Join Video Call</button>
+          <button class="btn-secondary" (click)="rescheduleAppointment(appointment)">Reschedule</button>
+          <button class="btn-danger" (click)="cancelAppointment(appointment)">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCTORS TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'doctors'">
+    <div class="section-header">
+      <h2>Available Doctors</h2>
+      <p>Find and book appointments with our doctors</p>
+    </div>
+
+    <div class="doctors-grid">
+      <div *ngFor="let doctor of availableDoctors" class="doctor-card" [ngClass]="!doctor.available ? 'unavailable' : ''">
+        <div class="doctor-header">
+          <span class="doctor-avatar">{{ doctor.avatar }}</span>
+          <div class="doctor-info">
+            <h3>{{ doctor.name }}</h3>
+            <p>{{ doctor.specialty }}</p>
+            <div class="doctor-rating">
+              <span class="stars">⭐ {{ doctor.rating }}</span>
+              <span class="patients">{{ doctor.patients }} patients</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="doctor-details">
+          <p><strong>Experience:</strong> {{ doctor.experience }}</p>
+          <p *ngIf="!doctor.available" class="unavailable-text">Currently unavailable</p>
+        </div>
+
+        <div class="doctor-actions">
+          <button class="btn-primary" [disabled]="!doctor.available" (click)="bookAppointment(doctor)">
+            Book Appointment
+          </button>
+          <button class="btn-secondary" (click)="contactDoctor(doctor)">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MESSAGES TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'messages'">
+    <div class="section-header">
+      <h2>Messages</h2>
+      <p>Communicate with your doctors</p>
+    </div>
+
+    <div class="messages-list">
+      <div *ngFor="let message of recentMessages" class="message-card" [ngClass]="message.unread ? 'unread' : ''">
+        <div class="message-header">
+          <span class="doctor-avatar">{{ message.avatar }}</span>
+          <div class="message-info">
+            <h3>{{ message.doctorName }}</h3>
+            <span class="timestamp">{{ message.timestamp }}</span>
+          </div>
+          <span class="unread-badge" *ngIf="message.unread">●</span>
+        </div>
+
+        <div class="message-content">
+          <p>{{ message.message }}</p>
+        </div>
+
+        <div class="message-actions">
+          <button class="btn-secondary">Reply</button>
+          <button class="btn-secondary">View Full</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECORDS TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'records'">
+    <div class="section-header">
+      <h2>Medical Records</h2>
+      <p>Your medical history and documents</p>
+    </div>
+
+    <div class="records-list">
+      <div *ngFor="let record of medicalRecords" class="record-card">
+        <div class="record-icon">{{ record.icon }}</div>
+        <div class="record-info">
+          <h3>{{ record.title }}</h3>
+          <p>{{ record.type }} • {{ record.date }}</p>
+          <span class="doctor-name">By {{ record.doctor }}</span>
+        </div>
+        <button class="btn-primary" (click)="viewRecord(record)">View Document</button>
+      </div>
+    </div>
+  </div>
+</div>

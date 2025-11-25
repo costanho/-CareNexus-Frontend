@@ -1,0 +1,81 @@
+<div class="scrollable-wrapper">
+<div class="appointments-container">
+  <!-- Header -->
+  <div class="page-header">
+    <h1>My Appointments</h1>
+    <p class="subtitle">View and manage your healthcare appointments</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading appointments...</p>
+  </div>
+
+  <!-- Appointments List -->
+  <div *ngIf="!loading && appointments.length > 0" class="appointments-list">
+    <div *ngFor="let appointment of appointments" class="appointment-item">
+      <div class="appointment-header">
+        <div class="doctor-info">
+          <h3>{{ appointment.doctorName }}</h3>
+          <p class="date-time">📅 {{ appointment.appointmentDate }} at {{ appointment.appointmentTime }}</p>
+        </div>
+        <div class="status-badge" [ngClass]="getStatusClass(appointment.status)">
+          {{ appointment.status }}
+        </div>
+      </div>
+
+      <div class="appointment-body">
+        <p *ngIf="appointment.notes">{{ appointment.notes }}</p>
+        <p *ngIf="!appointment.notes" class="no-notes">No notes provided</p>
+      </div>
+
+      <div class="appointment-footer">
+        <p class="scheduled">Scheduled on {{ appointment.createdAt | date: 'MMM d, yyyy' }}</p>
+        <div class="actions">
+          <button *ngIf="appointment.status === 'SCHEDULED'" (click)="cancelAppointment(appointment.id)" class="btn-cancel">
+            Cancel
+          </button>
+          <button class="btn-reschedule">
+            Reschedule
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && appointments.length === 0" class="empty-state">
+    <div class="empty-icon">📅</div>
+    <h2>No appointments yet</h2>
+    <p>Book your first appointment with a healthcare professional</p>
+    <a routerLink="/doctors" class="btn-book">Find a Doctor</a>
+  </div>
+
+  <!-- Pagination -->
+  <div *ngIf="!loading && totalPages > 1" class="pagination">
+    <button
+      (click)="previousPage()"
+      [disabled]="currentPage === 0"
+      class="btn-pagination"
+    >
+      ← Previous
+    </button>
+    <span class="page-info">
+      Page {{ currentPage + 1 }} of {{ totalPages }}
+    </span>
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages - 1"
+      class="btn-pagination"
+    >
+      Next →
+    </button>
+  </div>
+</div>
+</div>

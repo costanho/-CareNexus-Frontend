@@ -1,0 +1,662 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// ADMIN PROFILE LANDING COMPONENT STYLES
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Colors & Gradients
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$text-dark: #333;
+$text-light: #666;
+$text-lighter: #999;
+$bg-light: #f8f9fa;
+$border-color: #e0e0e0;
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+$shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+
+// ─────────────────────────────────────────────────────────────────────────
+// PROFILE SECTION
+// ─────────────────────────────────────────────────────────────────────────
+
+.profile-section {
+  background: $primary-gradient;
+  padding: 40px 20px;
+  margin-bottom: 40px;
+
+  .profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+.profile-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: $shadow-lg;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 30px;
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .profile-info {
+    flex: 1;
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0 0 5px 0;
+    }
+
+    .profile-email {
+      font-size: 14px;
+      color: $text-light;
+      margin: 0 0 12px 0;
+    }
+
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f0f2ff;
+      color: #667eea;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+
+      .badge-icon {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .profile-actions {
+    display: flex;
+    gap: 12px;
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.btn-settings {
+        background: $primary-gradient;
+        color: white;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
+      }
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// STATS GRID
+// ─────────────────────────────────────────────────────────────────────────
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+
+  .stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: $shadow-sm;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-md;
+    }
+
+    .stat-icon {
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+
+    .stat-content {
+      flex: 1;
+
+      .stat-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: $text-dark;
+        line-height: 1;
+        margin-bottom: 5px;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: $text-lighter;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// QUICK ACTIONS SECTION
+// ─────────────────────────────────────────────────────────────────────────
+
+.quick-actions-section {
+  background: white;
+  padding: 40px 20px;
+  border-bottom: 1px solid $border-color;
+
+  .quick-actions-container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0 0 25px 0;
+    }
+
+    .quick-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+    }
+
+    .quick-action-btn {
+      background: $bg-light;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+
+      &:hover {
+        background: white;
+        border-color: #667eea;
+        transform: translateY(-4px);
+        box-shadow: $shadow-md;
+
+        .action-icon {
+          font-size: 32px;
+        }
+      }
+
+      .action-icon {
+        font-size: 28px;
+        transition: font-size 0.3s ease;
+      }
+
+      .action-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: $text-dark;
+        text-align: center;
+      }
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// SERVICES SECTION
+// ─────────────────────────────────────────────────────────────────────────
+
+.services-section {
+  background: $bg-light;
+  padding: 40px 20px;
+  border-bottom: 1px solid $border-color;
+
+  .services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0 0 8px 0;
+    }
+
+    p {
+      font-size: 16px;
+      color: $text-light;
+      margin: 0;
+    }
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+  }
+
+  .service-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 30px;
+    box-shadow: $shadow-sm;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: $shadow-lg;
+
+      .service-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .btn-select {
+        background: $primary-gradient;
+        color: white;
+        transform: translateX(5px);
+      }
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 25px;
+
+      .service-icon {
+        font-size: 48px;
+        transition: transform 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: $text-dark;
+        margin: 0;
+        line-height: 1.2;
+      }
+    }
+
+    .service-description {
+      font-size: 14px;
+      color: $text-light;
+      margin: 0 0 25px 0;
+      line-height: 1.6;
+      flex-grow: 0;
+    }
+
+    .service-features {
+      margin: 0 0 30px 0;
+      flex-grow: 1;
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          font-size: 13px;
+          color: #555;
+          margin-bottom: 12px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .feature-check {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: center;
+      margin-top: auto;
+
+      .btn-select {
+        background: #f0f0f0;
+        color: $text-dark;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-align: center;
+
+        &:active {
+          transform: scale(0.98);
+        }
+      }
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// SYSTEM ACTIVITY SECTION
+// ─────────────────────────────────────────────────────────────────────────
+
+.activity-section {
+  background: white;
+  padding: 40px 20px;
+
+  .activity-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: 30px;
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0 0 8px 0;
+    }
+
+    p {
+      font-size: 16px;
+      color: $text-light;
+      margin: 0;
+    }
+  }
+
+  .activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    border-left: 4px solid #ddd;
+    background: white;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: $bg-light;
+      transform: translateX(4px);
+    }
+
+    &.type-success {
+      border-left-color: #4caf50;
+
+      .activity-icon {
+        color: #4caf50;
+      }
+    }
+
+    &.type-info {
+      border-left-color: #667eea;
+      background: #f0f2ff;
+
+      .activity-icon {
+        color: #667eea;
+      }
+    }
+
+    &.type-warning {
+      border-left-color: #ff9800;
+
+      .activity-icon {
+        color: #ff9800;
+      }
+    }
+
+    .activity-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .activity-content {
+      flex: 1;
+
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: $text-dark;
+        margin: 0 0 5px 0;
+      }
+
+      p {
+        font-size: 14px;
+        color: $text-light;
+        margin: 0 0 8px 0;
+      }
+
+      .activity-timestamp {
+        font-size: 12px;
+        color: $text-lighter;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// RESPONSIVE DESIGN
+// ─────────────────────────────────────────────────────────────────────────
+
+@media (max-width: 768px) {
+  .profile-section {
+    padding: 30px 15px;
+    margin-bottom: 30px;
+  }
+
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      font-size: 32px;
+    }
+
+    .profile-info {
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    .profile-actions {
+      width: 100%;
+
+      button {
+        flex: 1;
+      }
+    }
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .quick-actions-section {
+    padding: 30px 15px;
+
+    .quick-actions-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .services-section {
+    padding: 30px 15px;
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-card {
+      padding: 30px 20px;
+
+      .card-header {
+        margin-bottom: 20px;
+
+        .service-icon {
+          font-size: 40px;
+        }
+
+        h3 {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  .activity-section {
+    padding: 30px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-section {
+    padding: 20px 15px;
+    margin-bottom: 20px;
+  }
+
+  .profile-card {
+    padding: 20px 15px;
+
+    .profile-avatar {
+      width: 70px;
+      height: 70px;
+      font-size: 28px;
+    }
+
+    .profile-info {
+      h1 {
+        font-size: 20px;
+      }
+
+      .profile-email {
+        font-size: 12px;
+      }
+    }
+
+    .profile-actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .quick-actions-section {
+    padding: 20px 15px;
+
+    .quick-actions-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .quick-action-btn {
+      padding: 15px;
+    }
+  }
+
+  .services-section {
+    padding: 20px 15px;
+
+    .section-header {
+      margin-bottom: 20px;
+
+      h2 {
+        font-size: 22px;
+      }
+    }
+
+    .service-card {
+      padding: 20px 15px;
+
+      .card-header {
+        margin-bottom: 15px;
+
+        .service-icon {
+          font-size: 36px;
+        }
+
+        h3 {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .activity-section {
+    padding: 20px 15px;
+
+    .activity-item {
+      padding: 15px;
+      gap: 15px;
+
+      .activity-icon {
+        font-size: 24px;
+      }
+
+      h4 {
+        font-size: 14px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+}

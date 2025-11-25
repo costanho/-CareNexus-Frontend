@@ -1,0 +1,126 @@
+<div class="scrollable-wrapper">
+  <!-- PROFILE SECTION -->
+  <div class="profile-section">
+  <div class="profile-container">
+    <!-- Profile Card -->
+    <div class="profile-card">
+      <!-- Avatar -->
+      <div class="profile-avatar" [style.background-color]="getAvatarColor()">
+        {{ getInitials() }}
+      </div>
+
+      <!-- Profile Info -->
+      <div class="profile-info">
+        <h1>{{ currentUser?.fullName }}</h1>
+        <p class="profile-email">{{ currentUser?.email }}</p>
+        <div class="role-badge">
+          <span class="badge-icon">🛡️</span>
+          <span class="badge-text">Administrator</span>
+        </div>
+      </div>
+
+      <!-- Profile Actions -->
+      <div class="profile-actions">
+        <button class="btn-settings" (click)="handleQuickAction('settings')">
+          System Settings
+        </button>
+      </div>
+    </div>
+
+    <!-- System Overview Stats -->
+    <div class="stats-grid">
+      <div *ngFor="let stat of stats" class="stat-card">
+        <div class="stat-icon" [style.color]="stat.color">
+          {{ stat.icon }}
+        </div>
+        <div class="stat-content">
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK ACTIONS SECTION -->
+<div class="quick-actions-section">
+  <div class="quick-actions-container">
+    <h2>Quick Access</h2>
+    <div class="quick-actions-grid">
+      <button *ngFor="let action of quickActions"
+              class="quick-action-btn"
+              (click)="handleQuickAction(action.action)">
+        <span class="action-icon">{{ action.icon }}</span>
+        <span class="action-label">{{ action.label }}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN SERVICES SECTION -->
+<div class="services-section">
+  <div class="services-container">
+    <div class="section-header">
+      <h2>Admin Tools & Services</h2>
+      <p>Manage your system</p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="services-grid">
+      <div *ngFor="let service of adminServices"
+           class="service-card"
+           (click)="selectService(service)">
+
+        <!-- Card Header with Icon -->
+        <div class="card-header">
+          <span class="service-icon">{{ service.icon }}</span>
+          <h3>{{ service.name }}</h3>
+        </div>
+
+        <!-- Card Description -->
+        <p class="service-description">
+          {{ service.description }}
+        </p>
+
+        <!-- Card Features List -->
+        <div class="service-features">
+          <ul>
+            <li *ngFor="let feature of service.features">
+              <span class="feature-check">✓</span>
+              {{ feature }}
+            </li>
+          </ul>
+        </div>
+
+        <!-- Card Action Button -->
+        <div class="card-footer">
+          <button class="btn-select">
+            Access →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SYSTEM ACTIVITY SECTION -->
+<div class="activity-section">
+  <div class="activity-container">
+    <div class="section-header">
+      <h2>System Activity</h2>
+      <p>Recent system events and updates</p>
+    </div>
+
+    <div class="activity-list">
+      <div *ngFor="let activity of systemActivity" class="activity-item" [ngClass]="'type-' + activity.type">
+        <div class="activity-icon">{{ activity.icon }}</div>
+        <div class="activity-content">
+          <h4>{{ activity.title }}</h4>
+          <p>{{ activity.description }}</p>
+          <span class="activity-timestamp">{{ activity.timestamp }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

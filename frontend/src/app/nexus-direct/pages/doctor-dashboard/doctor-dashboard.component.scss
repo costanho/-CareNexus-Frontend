@@ -1,0 +1,500 @@
+// Doctor Dashboard Styling
+
+// Colors
+$primary: #667eea;
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$text-dark: #333;
+$text-light: #666;
+$bg-light: #f8f9fa;
+$border-color: #e0e0e0;
+$success: #4caf50;
+$warning: #ff9800;
+$info: #2196f3;
+
+// ───────────────────────────────────────────────────────────────
+// HEADER
+// ───────────────────────────────────────────────────────────────
+
+.dashboard-header {
+  background: $primary-gradient;
+  color: white;
+  padding: 40px 20px;
+  margin-bottom: 40px;
+
+  .header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 0;
+      opacity: 0.9;
+    }
+  }
+}
+
+// ───────────────────────────────────────────────────────────────
+// CONTAINER
+// ───────────────────────────────────────────────────────────────
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 40px 20px;
+}
+
+// ───────────────────────────────────────────────────────────────
+// STATS GRID
+// ───────────────────────────────────────────────────────────────
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .stat-icon {
+    font-size: 36px;
+    min-width: 50px;
+    text-align: center;
+  }
+
+  .stat-info {
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0;
+    }
+
+    p {
+      font-size: 12px;
+      color: $text-light;
+      margin: 5px 0 0 0;
+    }
+  }
+}
+
+// ───────────────────────────────────────────────────────────────
+// QUICK ACTIONS
+// ───────────────────────────────────────────────────────────────
+
+.quick-actions {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 40px;
+
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0 0 20px 0;
+  }
+
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+  }
+
+  .action-btn {
+    background: $bg-light;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 13px;
+    color: $text-dark;
+
+    .icon {
+      font-size: 28px;
+    }
+
+    &:hover {
+      background: $primary;
+      color: white;
+      border-color: $primary;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// ───────────────────────────────────────────────────────────────
+// DASHBOARD GRID (2 COLUMNS)
+// ───────────────────────────────────────────────────────────────
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+// ───────────────────────────────────────────────────────────────
+// SECTIONS
+// ───────────────────────────────────────────────────────────────
+
+.dashboard-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  border: 1px solid $border-color;
+
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0 0 20px 0;
+  }
+
+  .link-more {
+    display: inline-block;
+    margin-top: 15px;
+    color: $primary;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: darken($primary, 10%);
+      transform: translateX(5px);
+    }
+  }
+}
+
+// ───────────────────────────────────────────────────────────────
+// APPOINTMENTS LIST
+// ───────────────────────────────────────────────────────────────
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .appointment-card {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background: $bg-light;
+    border-radius: 10px;
+    border-left: 4px solid $success;
+    align-items: center;
+    transition: all 0.3s ease;
+
+    &.pending {
+      border-left-color: $warning;
+      background: lighten($warning, 40%);
+    }
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .apt-time {
+      font-weight: 700;
+      color: $primary;
+      min-width: 60px;
+      font-size: 14px;
+    }
+
+    .apt-details {
+      flex-grow: 1;
+
+      h3 {
+        font-size: 14px;
+        font-weight: 700;
+        color: $text-dark;
+        margin: 0;
+      }
+
+      .reason {
+        font-size: 12px;
+        color: $text-light;
+        margin: 5px 0;
+      }
+
+      .duration {
+        font-size: 11px;
+        color: $text-light;
+      }
+    }
+
+    .apt-status {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+
+      &.confirmed {
+        background: $success;
+        color: white;
+      }
+
+      &.pending {
+        background: $warning;
+        color: white;
+      }
+    }
+  }
+}
+
+// ───────────────────────────────────────────────────────────────
+// MESSAGES LIST
+// ───────────────────────────────────────────────────────────────
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .message-card {
+    padding: 15px;
+    background: $bg-light;
+    border-radius: 10px;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+
+    &.unread {
+      background: lighten($primary, 45%);
+      border-left-color: $primary;
+      font-weight: 600;
+    }
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .msg-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+
+      h3 {
+        font-size: 13px;
+        font-weight: 700;
+        color: $text-dark;
+        margin: 0;
+      }
+
+      .time {
+        font-size: 11px;
+        color: $text-light;
+      }
+    }
+
+    .msg-preview {
+      font-size: 12px;
+      color: $text-light;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+// ───────────────────────────────────────────────────────────────
+// PATIENTS LIST
+// ───────────────────────────────────────────────────────────────
+
+.patients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+
+  .patient-row {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr auto;
+    gap: 15px;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid $border-color;
+    transition: all 0.3s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: $bg-light;
+    }
+
+    .patient-name {
+      font-weight: 700;
+      color: $text-dark;
+      font-size: 13px;
+    }
+
+    .patient-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+
+      .label {
+        font-size: 10px;
+        color: $text-light;
+        text-transform: uppercase;
+      }
+
+      .value {
+        font-size: 12px;
+        color: $text-dark;
+        font-weight: 600;
+      }
+    }
+
+    .patient-status {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+
+      &.stable {
+        background: $success;
+        color: white;
+      }
+
+      &.improving {
+        background: $info;
+        color: white;
+      }
+
+      &.follow-up-needed {
+        background: $warning;
+        color: white;
+      }
+    }
+
+    .btn-notes {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+// ───────────────────────────────────────────────────────────────
+// RESPONSIVE
+// ───────────────────────────────────────────────────────────────
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 30px 15px;
+    margin-bottom: 30px;
+
+    .header-content {
+      h1 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .quick-actions .action-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .patients-list .patient-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 0 15px 30px 15px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+
+    .stat-icon {
+      font-size: 28px;
+    }
+  }
+
+  .quick-actions .action-buttons {
+    grid-template-columns: repeat(2, 1fr);
+
+    .action-btn {
+      padding: 15px;
+      font-size: 12px;
+
+      .icon {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .patients-list .patient-row {
+    grid-template-columns: 1fr;
+    padding: 12px;
+
+    .btn-notes {
+      justify-self: start;
+    }
+  }
+}
