@@ -1,129 +1,248 @@
-<div class="scrollable-wrapper">
-  <!-- PROFILE SECTION -->
-  <div class="profile-section">
-    <div class="profile-container">
-      <!-- Profile Card -->
-      <div class="profile-card">
-        <!-- Avatar -->
-        <div class="profile-avatar" [style.background-color]="getAvatarColor()">
-          {{ getInitials() }}
-        </div>
-
-        <!-- Profile Info -->
-        <div class="profile-info">
-          <h1>{{ currentUser?.fullName }}</h1>
-          <p class="profile-email">{{ currentUser?.email }}</p>
-          <div class="role-badge">
-            <span class="badge-icon">👤</span>
-            <span class="badge-text">Patient</span>
-          </div>
-        </div>
-
-        <!-- Profile Actions -->
-        <div class="profile-actions">
-          <button class="btn-edit" (click)="handleQuickAction('editProfile')">
-            Edit Profile
-          </button>
-          <button class="btn-settings" (click)="handleQuickAction('settings')">
-            Settings
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Stats -->
-      <div class="stats-grid">
-        <div *ngFor="let stat of stats" class="stat-card">
-          <div class="stat-icon" [style.color]="stat.color">
-            {{ stat.icon }}
-          </div>
-          <div class="stat-content">
-            <div class="stat-value">{{ stat.value }}</div>
-            <div class="stat-label">{{ stat.label }}</div>
-          </div>
-        </div>
+<div class="dashboard-container">
+  <!-- LEFT SIDEBAR - NAVIGATION -->
+  <aside class="sidebar-left">
+    <!-- Logo -->
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">🏥</span>
+        <span class="logo-text">CareNexus</span>
       </div>
     </div>
-  </div>
 
-  <!-- QUICK ACTIONS SECTION -->
-  <div class="quick-actions-section">
-    <div class="quick-actions-container">
-      <h2>Quick Access</h2>
-      <div class="quick-actions-grid">
-        <button *ngFor="let action of quickActions"
-                class="quick-action-btn"
-                (click)="handleQuickAction(action.action)">
-          <span class="action-icon">{{ action.icon }}</span>
-          <span class="action-label">{{ action.label }}</span>
+    <!-- Navigation Menu -->
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-item active">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Dashboard</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">👨‍⚕️</span>
+          <span class="nav-label">Find Doctors</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📅</span>
+          <span class="nav-label">Appointments</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">💬</span>
+          <span class="nav-label">Messages</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">Medical Records</span>
+        </div>
+      </div>
+
+      <div class="nav-divider"></div>
+
+      <div class="nav-section">
+        <div class="nav-label-header">Services</div>
+        <div class="nav-item">
+          <span class="nav-icon">🔗</span>
+          <span class="nav-label">CareNexus Connect</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">🚑</span>
+          <span class="nav-label">Emergency Services</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">👨‍👩‍👧‍👦</span>
+          <span class="nav-label">Family Care</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📚</span>
+          <span class="nav-label">Health Learning</span>
+        </div>
+      </div>
+
+      <div class="nav-divider"></div>
+
+      <div class="nav-section">
+        <div class="nav-item">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Settings</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">🔒</span>
+          <span class="nav-label">Privacy & Security</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">❓</span>
+          <span class="nav-label">Help & Support</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Chat Button -->
+    <button class="chat-btn">
+      <span>💬</span>
+      Chat with us
+    </button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- Top Header Bar -->
+    <div class="top-header">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search doctors, appointments...">
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn notification">
+          <span class="badge">3</span>
+          🔔
         </button>
+        <button class="icon-btn">📧</button>
+        <button class="icon-btn">⚙️</button>
       </div>
     </div>
-  </div>
 
-  <!-- SERVICES SECTION -->
-  <div class="services-section">
-    <div class="services-container">
+    <!-- Welcome Banner with Stats -->
+    <section class="welcome-banner">
+      <div class="banner-content">
+        <div class="banner-text">
+          <div class="banner-avatar" [style.background-color]="getAvatarColor()">
+            {{ getInitials() }}
+          </div>
+          <div class="banner-info">
+            <h1>Welcome back, {{ currentUser?.fullName?.split(' ')[0] }}</h1>
+            <p>You're here to help. Please let us know what you need.</p>
+          </div>
+        </div>
+        <div class="banner-stats">
+          <div class="stat-box">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Upcoming</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">5</span>
+            <span class="stat-label">Doctors</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">2</span>
+            <span class="stat-label">Messages</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hero Carousel Section -->
+    <section class="carousel-section">
+      <div class="carousel-wrapper">
+        <div class="carousel-slide">
+          <img src="assets/images/healthcare-tech.jpg" alt="Healthcare Technology" class="carousel-image">
+          <div class="carousel-overlay"></div>
+          <div class="carousel-label">
+            <h3>Quality Healthcare at Your Fingertips</h3>
+            <p>Connect with trusted medical professionals</p>
+          </div>
+        </div>
+        <button class="carousel-btn prev">❮</button>
+        <button class="carousel-btn next">❯</button>
+      </div>
+    </section>
+
+    <!-- Suggested Services Grid -->
+    <section class="services-section">
       <div class="section-header">
-        <h2>Available Services</h2>
-        <p>Choose a service to explore</p>
+        <h2>Explore Our Services</h2>
+        <p>Find the service that fits your healthcare needs</p>
       </div>
 
-      <!-- Services Grid -->
       <div class="services-grid">
-        <div *ngFor="let service of availableServices"
-             class="service-card"
-             (click)="selectService(service)">
-
-          <!-- Card Header with Icon -->
-          <div class="card-header">
+        <div *ngFor="let service of availableServices" class="service-card" (click)="selectService(service)">
+          <div class="card-header-section">
             <span class="service-icon">{{ service.icon }}</span>
             <h3>{{ service.name }}</h3>
           </div>
-
-          <!-- Card Description -->
-          <p class="service-description">
-            {{ service.description }}
-          </p>
-
-          <!-- Card Features List -->
+          <p class="service-description">{{ service.description }}</p>
           <div class="service-features">
-            <ul>
-              <li *ngFor="let feature of service.features">
-                <span class="feature-check">✓</span>
-                {{ feature }}
-              </li>
-            </ul>
+            <span *ngFor="let feature of service.features.slice(0, 2)" class="feature-tag">
+              ✓ {{ feature }}
+            </span>
           </div>
+          <button class="btn-details">View Details</button>
+        </div>
+      </div>
+    </section>
+  </main>
 
-          <!-- Card Action Button -->
-          <div class="card-footer">
-            <button class="btn-select">
-              Get Started →
-            </button>
+  <!-- RIGHT SIDEBAR - USER PANEL -->
+  <aside class="sidebar-right">
+    <!-- User Profile Card -->
+    <div class="user-profile-card">
+      <div class="profile-header">
+        <div class="profile-avatar-large" [style.background-color]="getAvatarColor()">
+          {{ getInitials() }}
+        </div>
+        <div class="profile-details">
+          <h3>{{ currentUser?.fullName }}</h3>
+          <p class="role-badge">👤 Patient</p>
+          <p class="email">{{ currentUser?.email }}</p>
+        </div>
+      </div>
+      <div class="profile-actions">
+        <button class="btn-primary-small" (click)="handleQuickAction('editProfile')">Edit Profile</button>
+        <button class="btn-secondary-small" (click)="handleQuickAction('settings')">Settings</button>
+      </div>
+    </div>
+
+    <!-- My Items Panel -->
+    <div class="panel-card">
+      <div class="panel-header">
+        <h3>My Requests</h3>
+        <span class="badge-count">6</span>
+      </div>
+      <div class="items-list">
+        <div *ngFor="let activity of recentActivity" class="item-row" [ngClass]="'status-' + activity.status">
+          <span class="item-icon">{{ activity.icon }}</span>
+          <div class="item-info">
+            <p class="item-title">{{ activity.title }}</p>
+            <p class="item-date">{{ activity.date }}</p>
+          </div>
+          <span class="status-label" [ngClass]="'status-' + activity.status">{{ activity.status }}</span>
+        </div>
+      </div>
+      <a href="#" class="view-all">View All →</a>
+    </div>
+
+    <!-- Quick Actions Panel -->
+    <div class="panel-card quick-actions-panel">
+      <div class="panel-header">
+        <h3>Quick Actions</h3>
+      </div>
+      <div class="quick-actions-vertical">
+        <button class="quick-action-item" (click)="handleQuickAction('appointments')">
+          <span>📅</span>
+          <span>My Appointments</span>
+        </button>
+        <button class="quick-action-item" (click)="handleQuickAction('messages')">
+          <span>💬</span>
+          <span>Messages</span>
+        </button>
+        <button class="quick-action-item" (click)="handleQuickAction('editProfile')">
+          <span>✏️</span>
+          <span>Edit Profile</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Health Stats Panel -->
+    <div class="panel-card stats-panel">
+      <div class="panel-header">
+        <h3>Health Stats</h3>
+      </div>
+      <div class="stats-vertical">
+        <div *ngFor="let stat of stats" class="stat-item">
+          <span class="stat-icon" [style.color]="stat.color">{{ stat.icon }}</span>
+          <div class="stat-info">
+            <p class="stat-label">{{ stat.label }}</p>
+            <p class="stat-value">{{ stat.value }}</p>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- RECENT ACTIVITY SECTION -->
-  <div class="activity-section">
-    <div class="activity-container">
-      <div class="section-header">
-        <h2>Recent Activity</h2>
-        <p>Your latest updates</p>
-      </div>
-
-      <div class="activity-list">
-        <div *ngFor="let activity of recentActivity" class="activity-item" [ngClass]="'status-' + activity.status">
-          <div class="activity-icon">{{ activity.icon }}</div>
-          <div class="activity-content">
-            <h4>{{ activity.title }}</h4>
-            <p>{{ activity.description }}</p>
-            <span class="activity-date">{{ activity.date }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </aside>
 </div>
