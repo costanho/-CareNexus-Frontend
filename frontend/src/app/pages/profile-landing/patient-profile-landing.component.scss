@@ -244,6 +244,7 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   height: calc(100% - 64px);
   width: 100%;
   background: $bg-light;
+  align-items: flex-start;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -772,22 +773,22 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 
 .sidebar-right {
   width: $sidebar-right-width;
-  background: $bg-white;
-  border-left: 1px solid $border-light;
-  overflow-y: auto;
+  background: transparent;
+  border-left: none;
+  overflow-y: visible;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   padding: 20px 15px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
+  box-shadow: none;
   align-self: flex-start;
-  margin-top: 30px;
+  margin-top: 350px;
   height: fit-content;
-  max-height: calc(100vh - 94px);
-  position: sticky;
-  top: 64px;
+  max-height: none;
+  position: relative;
+  top: 0;
 }
 
 // User Profile Card
