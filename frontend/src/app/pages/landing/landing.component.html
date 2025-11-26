@@ -131,6 +131,28 @@
   </div>
 </section>
 
+<!-- STATISTICS SECTION -->
+<section class="statistics">
+  <div class="statistics-container">
+    <div class="statistics-grid">
+      <div *ngFor="let stat of statistics" class="stat-card" [style.--stat-color]="stat.color">
+        <div class="stat-icon">{{ stat.icon }}</div>
+        <div class="stat-number">{{ stat.number }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-final">
+  <div class="cta-container">
+    <h2>Ready to Get Started?</h2>
+    <p>Join thousands of patients already using CareNexus</p>
+    <a routerLink="/register" class="btn btn-primary btn-large">Create Account Now</a>
+  </div>
+</section>
+
 <!-- BENEFITS SECTION -->
 <section class="benefits">
   <div class="benefits-container">
@@ -188,28 +210,6 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- STATISTICS SECTION -->
-<section class="statistics">
-  <div class="statistics-container">
-    <div class="statistics-grid">
-      <div *ngFor="let stat of statistics" class="stat-card" [style.--stat-color]="stat.color">
-        <div class="stat-icon">{{ stat.icon }}</div>
-        <div class="stat-number">{{ stat.number }}</div>
-        <div class="stat-label">{{ stat.label }}</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA SECTION -->
-<section class="cta-final">
-  <div class="cta-container">
-    <h2>Ready to Get Started?</h2>
-    <p>Join thousands of patients already using CareNexus</p>
-    <a routerLink="/register" class="btn btn-primary btn-large">Create Account Now</a>
   </div>
 </section>
 
