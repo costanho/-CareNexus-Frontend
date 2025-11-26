@@ -1,14 +1,49 @@
+<!-- TOP NAVIGATION BAR - Turbinee Style -->
+<nav class="top-navbar">
+  <div class="navbar-left">
+    <div class="logo">
+      <span class="logo-icon">🏥</span>
+      <span class="logo-text">CareNexus</span>
+    </div>
+  </div>
+
+  <div class="navbar-center">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Type in to Search...">
+    </div>
+  </div>
+
+  <div class="navbar-right">
+    <div class="notification-badges">
+      <button class="icon-btn notification">
+        <span class="badge">3</span>
+        🔔
+      </button>
+      <button class="icon-btn">
+        <span class="badge">2</span>
+        📧
+      </button>
+      <button class="icon-btn">
+        <span class="badge">1</span>
+        ⚙️
+      </button>
+    </div>
+    <div class="user-profile-header">
+      <div class="user-avatar" [style.background-color]="getAvatarColor()">
+        {{ getInitials() }}
+      </div>
+      <div class="user-info">
+        <p class="user-name">{{ currentUser?.fullName }}</p>
+        <p class="user-role">Patient</p>
+      </div>
+    </div>
+  </div>
+</nav>
+
 <div class="dashboard-container">
   <!-- LEFT SIDEBAR - NAVIGATION -->
   <aside class="sidebar-left">
-    <!-- Logo -->
-    <div class="sidebar-header">
-      <div class="logo">
-        <span class="logo-icon">🏥</span>
-        <span class="logo-text">CareNexus</span>
-      </div>
-    </div>
-
     <!-- Navigation Menu -->
     <nav class="sidebar-nav">
       <div class="nav-section">
@@ -83,21 +118,6 @@
 
   <!-- MAIN CONTENT -->
   <main class="main-content">
-    <!-- Top Header Bar -->
-    <div class="top-header">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" placeholder="Search doctors, appointments...">
-      </div>
-      <div class="header-actions">
-        <button class="icon-btn notification">
-          <span class="badge">3</span>
-          🔔
-        </button>
-        <button class="icon-btn">📧</button>
-        <button class="icon-btn">⚙️</button>
-      </div>
-    </div>
 
     <!-- Welcome Banner with Stats -->
     <section class="welcome-banner">
