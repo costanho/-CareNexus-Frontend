@@ -370,6 +370,8 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   background: $bg-light;
+  padding: $main-content-padding;
+  padding-bottom: 0;
 }
 
 // Top Header Bar
@@ -473,11 +475,14 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 
 // Welcome Banner
 .welcome-banner {
-  padding: $main-content-padding;
+  padding: 30px $main-content-padding;
   background: $gradient-primary;
   color: $text-white;
-  border-radius: 12px;
-  margin: $main-content-padding;
+  border-radius: 0;
+  margin: 0 0 $main-content-padding 0;
+  margin-left: -$main-content-padding;
+  margin-right: -$main-content-padding;
+  width: calc(100% + #{$main-content-padding * 2});
   box-shadow: $shadow-md;
 
   .banner-content {
@@ -485,6 +490,7 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     justify-content: space-between;
     align-items: center;
     gap: 30px;
+    padding: 0 $main-content-padding;
   }
 
   .banner-text {
@@ -554,14 +560,18 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 
 // Carousel Section
 .carousel-section {
-  padding: 0 $main-content-padding $main-content-padding;
+  padding: $main-content-padding 0;
+  margin-left: -$main-content-padding;
+  margin-right: -$main-content-padding;
+  width: calc(100% + #{$main-content-padding * 2});
 
   .carousel-wrapper {
     position: relative;
-    border-radius: 12px;
+    border-radius: 0;
     overflow: hidden;
     box-shadow: $shadow-lg;
     height: 320px;
+    margin: 0 $main-content-padding;
   }
 
   .carousel-slide {
@@ -639,10 +649,14 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 
 // Services Section
 .services-section {
-  padding: 0 $main-content-padding $main-content-padding;
+  padding: 0;
+  margin-left: -$main-content-padding;
+  margin-right: -$main-content-padding;
+  width: calc(100% + #{$main-content-padding * 2});
 
   .section-header {
     margin-bottom: 30px;
+    padding: 0 $main-content-padding;
 
     h2 {
       font-size: 28px;
@@ -662,6 +676,7 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
+    padding: 0 $main-content-padding $main-content-padding;
   }
 
   .service-card {
