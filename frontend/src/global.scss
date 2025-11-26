@@ -84,3 +84,120 @@
     background: #555;
   }
 }
+
+/**
+ * Mobile & Ionic Optimization
+ * ============================================================================
+ * These styles optimize the app for mobile devices and Ionic compatibility
+ */
+
+/* Safe Area Support for devices with notches/cutouts */
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+}
+
+/* Body optimization for mobile */
+body {
+  /* Prevent unwanted margin/padding on mobile */
+  margin: 0;
+  padding: 0;
+  /* Smooth scrolling on iOS */
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent text scaling on orientation change */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* Improve touch target sizes for mobile (minimum 44x44px recommended) */
+button, a, [role="button"], input[type="button"], input[type="submit"] {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 12px;
+}
+
+/* Optimize input fields for mobile */
+input, textarea, select {
+  /* Prevent iOS zoom on input focus */
+  font-size: 16px;
+  /* Add padding for better mobile UX */
+  padding: 10px 12px;
+  /* Better mobile touch experience */
+  border-radius: 4px;
+  /* Smooth transitions */
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Prevent double-tap delay on mobile */
+* {
+  touch-action: manipulation;
+}
+
+/* Optimize scrolling performance on mobile */
+.scrollable-wrapper, [class*="-content"] {
+  /* Use native scrolling on iOS/Android */
+  -webkit-overflow-scrolling: touch;
+  /* Reduce motion if user prefers */
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Mobile-friendly font sizing */
+@media (max-width: 480px) {
+  html {
+    /* Slightly increase base font size for small screens for readability */
+    font-size: 14px;
+  }
+
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 12px;
+    margin-bottom: 8px;
+  }
+
+  /* Ensure images scale properly on mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Portrait orientation optimizations (typical mobile orientation) */
+@media (orientation: portrait) {
+  body {
+    padding: var(--safe-area-inset-top) var(--safe-area-inset-right) var(--safe-area-inset-bottom) var(--safe-area-inset-left);
+  }
+}
+
+/* Landscape orientation optimizations */
+@media (orientation: landscape) {
+  body {
+    /* Reduce padding in landscape to maximize content area */
+    padding: calc(var(--safe-area-inset-top) * 0.5) var(--safe-area-inset-right) 0 var(--safe-area-inset-left);
+  }
+}
+
+/* High-density display optimization (Retina/2x screens) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Fine-tune styles for high-DPI screens if needed */
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

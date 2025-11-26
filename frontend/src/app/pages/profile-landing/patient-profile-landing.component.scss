@@ -911,9 +911,10 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// RESPONSIVE DESIGN
+// RESPONSIVE DESIGN - IONIC MOBILE FIRST OPTIMIZATION
 // ═══════════════════════════════════════════════════════════════════════════
 
+// Large Desktop (1400px and above)
 @media (max-width: 1400px) {
   .sidebar-right {
     width: 280px;
@@ -924,6 +925,7 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   }
 }
 
+// Tablet & Medium Screens (1024px - 1399px)
 @media (max-width: 1024px) {
   .dashboard-container {
     flex-direction: column;
@@ -988,6 +990,7 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   }
 }
 
+// Small Tablet & Large Phone (768px - 1023px)
 @media (max-width: 768px) {
   $main-content-padding: 15px;
 
@@ -1057,5 +1060,490 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   .sidebar-right {
     padding: 15px 10px;
     gap: 15px;
+  }
+}
+
+// Standard Smartphones (480px - 767px) - IONIC MOBILE
+@media (max-width: 480px) {
+  .dashboard-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  // Hide sidebars on mobile - show hamburger menu pattern
+  .sidebar-left {
+    display: none;
+    // Could be converted to ion-menu in Ionic
+  }
+
+  .sidebar-right {
+    display: none;
+    // Content moves to bottom tabs or modal in Ionic
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 10px;
+  }
+
+  // Top Header Optimization
+  .top-header {
+    padding: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: $bg-white;
+
+    .search-box {
+      flex: 1;
+      min-width: 100%;
+      padding: 8px 12px;
+
+      input {
+        font-size: 16px; // Prevent iOS zoom
+      }
+    }
+
+    .header-actions {
+      width: 100%;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+
+      .icon-btn {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 10px;
+        font-size: 18px;
+      }
+    }
+  }
+
+  // Welcome Banner Mobile
+  .welcome-banner {
+    margin: 10px;
+    padding: 12px;
+    border-radius: 12px;
+
+    .banner-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .banner-text {
+      gap: 8px;
+
+      .banner-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+
+      .banner-info {
+        h1 {
+          font-size: 18px;
+          line-height: 1.3;
+        }
+
+        p {
+          font-size: 13px;
+        }
+      }
+    }
+
+    .banner-stats {
+      width: 100%;
+      margin-top: 12px;
+      justify-content: space-around;
+
+      .stat-box {
+        min-width: auto;
+        padding: 8px 12px;
+
+        .stat-number {
+          font-size: 20px;
+        }
+
+        .stat-label {
+          font-size: 11px;
+        }
+      }
+    }
+  }
+
+  // Carousel Optimization
+  .carousel-section {
+    padding: 0 10px 10px;
+
+    .carousel-wrapper {
+      height: 180px;
+      border-radius: 10px;
+
+      .carousel-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+      }
+    }
+
+    .carousel-indicators {
+      bottom: 10px;
+
+      .indicator {
+        width: 8px;
+        height: 8px;
+      }
+    }
+  }
+
+  // Services Grid Mobile - Single Column
+  .services-section {
+    padding: 0 10px 10px;
+
+    .section-header {
+      h2 {
+        font-size: 18px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .service-card {
+      padding: 14px;
+      border-radius: 10px;
+
+      .card-header-section {
+        gap: 10px;
+        margin-bottom: 8px;
+
+        .service-icon {
+          font-size: 28px;
+        }
+
+        h3 {
+          font-size: 15px;
+        }
+      }
+
+      .service-description {
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 8px;
+      }
+
+      .service-features {
+        margin-bottom: 10px;
+
+        .feature-tag {
+          font-size: 11px;
+          padding: 4px 8px;
+        }
+      }
+
+      .btn-details {
+        width: 100%;
+        padding: 10px;
+        font-size: 13px;
+        min-height: 44px;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  // Mobile Bottom Panels (replace right sidebar)
+  .user-profile-card,
+  .panel-card {
+    margin: 10px;
+    padding: 12px;
+    border-radius: 10px;
+
+    .profile-header {
+      flex-direction: column;
+      text-align: center;
+      margin-bottom: 12px;
+
+      .profile-avatar-large {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        margin: 0 auto 10px;
+      }
+
+      .profile-details {
+        h3 {
+          font-size: 16px;
+          margin-bottom: 4px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+
+      button {
+        flex: 1;
+        min-height: 44px;
+        padding: 10px;
+        font-size: 13px;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+    }
+
+    .panel-header {
+      margin-bottom: 12px;
+
+      h3 {
+        font-size: 15px;
+      }
+
+      .badge-count {
+        font-size: 12px;
+      }
+    }
+
+    .items-list {
+      .item-row {
+        padding: 10px 0;
+        border-bottom: 1px solid $border-light;
+
+        .item-icon {
+          font-size: 20px;
+          margin-right: 10px;
+        }
+
+        .item-info {
+          flex: 1;
+
+          .item-title {
+            font-size: 13px;
+            font-weight: 600;
+          }
+
+          .item-date {
+            font-size: 11px;
+          }
+        }
+
+        .status-label {
+          font-size: 10px;
+          padding: 4px 8px;
+        }
+      }
+    }
+
+    .view-all {
+      font-size: 13px;
+      padding: 10px 0;
+      display: inline-block;
+    }
+  }
+
+  .quick-actions-panel {
+    .quick-actions-vertical {
+      .quick-action-item {
+        padding: 12px;
+        min-height: 44px;
+        font-size: 13px;
+        border-radius: 8px;
+        gap: 10px;
+
+        span:first-child {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .stats-panel {
+    .stats-vertical {
+      .stat-item {
+        padding: 8px 0;
+
+        .stat-icon {
+          font-size: 24px;
+          min-width: 40px;
+        }
+
+        .stat-info {
+          flex: 1;
+
+          .stat-label {
+            font-size: 12px;
+          }
+
+          .stat-value {
+            font-size: 14px;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Small Smartphones (375px - 479px) - iPhone SE, older Android
+@media (max-width: 375px) {
+  .top-header {
+    padding: 8px;
+
+    .search-box {
+      padding: 6px 10px;
+
+      input {
+        font-size: 16px;
+      }
+    }
+
+    .header-actions {
+      .icon-btn {
+        min-width: 40px;
+        min-height: 40px;
+        padding: 8px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .welcome-banner {
+    margin: 8px;
+    padding: 10px;
+
+    .banner-text {
+      .banner-avatar {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+
+      .banner-info {
+        h1 {
+          font-size: 16px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .banner-stats {
+      .stat-box {
+        padding: 6px 10px;
+
+        .stat-number {
+          font-size: 18px;
+        }
+
+        .stat-label {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+
+  .carousel-section {
+    padding: 0 8px 8px;
+
+    .carousel-wrapper {
+      height: 160px;
+
+      .carousel-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .services-section {
+    padding: 0 8px 8px;
+
+    .section-header {
+      h2 {
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 12px;
+      }
+    }
+
+    .services-grid {
+      gap: 10px;
+    }
+
+    .service-card {
+      padding: 12px;
+
+      .card-header-section {
+        gap: 8px;
+
+        .service-icon {
+          font-size: 24px;
+        }
+
+        h3 {
+          font-size: 14px;
+        }
+      }
+
+      .service-description {
+        font-size: 11px;
+        margin-bottom: 6px;
+      }
+
+      .btn-details {
+        padding: 9px;
+        font-size: 12px;
+        min-height: 40px;
+      }
+    }
+  }
+
+  .user-profile-card,
+  .panel-card {
+    margin: 8px;
+    padding: 10px;
+
+    .profile-avatar-large {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+    }
+
+    .profile-details {
+      h3 {
+        font-size: 14px;
+      }
+
+      p {
+        font-size: 11px;
+      }
+    }
+
+    .profile-actions {
+      button {
+        min-height: 40px;
+        padding: 8px;
+        font-size: 12px;
+      }
+    }
   }
 }

@@ -3,20 +3,41 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Ionic App</title>
+  <title>CareNexus - Healthcare Platform</title>
 
   <base href="/" />
 
+  <!-- Viewport Configuration for Ionic & Mobile Optimization -->
   <meta name="color-scheme" content="light dark" />
   <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <!-- Mobile Meta Tags -->
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="CareNexus" />
 
+  <!-- iOS Specific -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+
+  <!-- Android Specific -->
+  <meta name="theme-color" content="#667eea" />
+
+  <!-- Safe Area CSS Variables for Notch Support -->
+  <style>
+    :root {
+      --safe-area-inset-top: env(safe-area-inset-top);
+      --safe-area-inset-right: env(safe-area-inset-right);
+      --safe-area-inset-bottom: env(safe-area-inset-bottom);
+      --safe-area-inset-left: env(safe-area-inset-left);
+    }
+  </style>
+
+  <!-- Icons -->
   <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
-
-  <!-- add to homescreen for ios -->
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon" href="assets/icon/favicon.png" />
 </head>
 
 <body>
