@@ -1131,7 +1131,7 @@
   }
 
   &:hover {
-    border-color: var(--stat-color);
+    border-color: #667eea;
     box-shadow: 0 12px 40px rgba(102, 126, 234, 0.15);
     transform: translateY(-8px);
   }
@@ -1141,6 +1141,7 @@
     margin: 0 0 20px 0;
     display: block;
     line-height: 1;
+    color: #667eea;
   }
 
   .stat-number {
