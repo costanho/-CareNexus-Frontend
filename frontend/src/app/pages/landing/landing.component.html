@@ -131,19 +131,6 @@
   </div>
 </section>
 
-<!-- STATISTICS SECTION -->
-<section class="statistics">
-  <div class="statistics-container">
-    <div class="statistics-grid">
-      <div *ngFor="let stat of statistics" class="stat-card" [style.--stat-color]="stat.color">
-        <div class="stat-icon">{{ stat.icon }}</div>
-        <div class="stat-number">{{ stat.number }}</div>
-        <div class="stat-label">{{ stat.label }}</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- CTA SECTION -->
 <section class="cta-final">
   <div class="cta-container">
@@ -208,6 +195,19 @@
             <span>{{ testimonial.role }}</span>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATISTICS SECTION -->
+<section class="statistics">
+  <div class="statistics-container">
+    <div class="statistics-grid">
+      <div *ngFor="let stat of statistics" class="stat-card" [style.--stat-color]="stat.color">
+        <div class="stat-icon">{{ stat.icon }}</div>
+        <div class="stat-number">{{ stat.number }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
       </div>
     </div>
   </div>
