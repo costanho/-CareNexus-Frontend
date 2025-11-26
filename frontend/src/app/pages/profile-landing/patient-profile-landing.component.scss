@@ -798,6 +798,7 @@ $gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   border-radius: 12px;
   padding: 20px;
   box-shadow: $shadow-md;
+  display: none;
 
   .profile-header {
     display: flex;
