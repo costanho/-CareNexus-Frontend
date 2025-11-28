@@ -201,3 +201,145 @@ input, textarea, select {
     scroll-behavior: auto !important;
   }
 }
+
+/**
+ * Enhanced Mobile Keyboard & Input Support
+ * ============================================================================
+ * Prevents keyboard from covering content on mobile devices
+ */
+
+/* Prevent iOS input elements from zooming */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+  font-size: 16px !important;
+  /* Prevent auto-zoom on focus */
+  -webkit-user-zoom: 1;
+  /* Better touch padding */
+  padding: 12px 14px;
+  /* Smoother focus states */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Optimize select dropdowns for mobile */
+select {
+  /* Better styling on iOS */
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+}
+
+/**
+ * Small Phone Optimization (iPhone SE, 375px and below)
+ * ============================================================================
+ */
+
+@media (max-width: 375px) {
+  body {
+    font-size: 13px;
+  }
+
+  input, textarea, select {
+    padding: 10px 10px;
+    font-size: 16px;
+  }
+
+  button, a, [role="button"] {
+    padding: 10px 10px;
+    min-height: 40px;
+    min-width: 40px;
+  }
+
+  h1 { font-size: 24px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 18px; }
+}
+
+/**
+ * Tablet Optimization (768px and above)
+ * ============================================================================
+ */
+
+@media (min-width: 768px) {
+  input, textarea, select {
+    padding: 12px 14px;
+  }
+}
+
+/**
+ * Large Screen Optimization (1024px and above)
+ * ============================================================================
+ */
+
+@media (min-width: 1024px) {
+  input, textarea, select {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  button, a, [role="button"] {
+    padding: 12px 16px;
+  }
+}
+
+/**
+ * iOS Status Bar Handling
+ * ============================================================================
+ * Adjust layout when status bar is visible/hidden
+ */
+
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, var(--safe-area-inset-left));
+    padding-right: max(0px, var(--safe-area-inset-right));
+    padding-top: max(0px, var(--safe-area-inset-top));
+    padding-bottom: max(0px, var(--safe-area-inset-bottom));
+  }
+}
+
+/**
+ * Virtual Keyboard Support for Mobile
+ * ============================================================================
+ * Prevent content from being hidden by virtual keyboard
+ */
+
+/* When virtual keyboard appears on mobile */
+@media (max-height: 500px) {
+  .scrollable-wrapper {
+    min-height: 100vh;
+  }
+}
+
+/**
+ * Touch and Interaction Optimizations
+ * ============================================================================
+ */
+
+/* Ensure proper cursor on mobile */
+a, button, [role="button"], input[type="button"], input[type="submit"] {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Prevent text selection on elements */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection where needed */
+p, span, div {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}

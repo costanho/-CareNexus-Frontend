@@ -1,9 +1,9 @@
-<!-- TOP NAVIGATION BAR - Turbinee Style -->
+<!-- TOP NAVIGATION BAR - Clean & Minimal -->
 <nav class="top-navbar">
   <div class="navbar-left">
-    <div class="logo">
-      <span class="logo-icon">🏥</span>
-      <span class="logo-text">CareNexus</span>
+    <div class="navbar-brand">
+      <img src="assets/images/carenexus-logo.svg" alt="CareNexus Logo" class="brand-logo-img">
+      <span class="brand-text">CareNexus</span>
     </div>
   </div>
 
@@ -18,15 +18,13 @@
     <div class="notification-badges">
       <button class="icon-btn notification">
         <span class="badge">3</span>
-        🔔
+        <span class="icon">📅</span>
+        <span class="label">Appointment</span>
       </button>
       <button class="icon-btn">
         <span class="badge">2</span>
-        📧
-      </button>
-      <button class="icon-btn">
-        <span class="badge">1</span>
-        ⚙️
+        <span class="icon">📧</span>
+        <span class="label">Messages</span>
       </button>
     </div>
     <div class="user-profile-header">
@@ -42,14 +40,14 @@
 </nav>
 
 <div class="dashboard-container">
-  <!-- LEFT SIDEBAR - NAVIGATION -->
+  <!-- LEFT SIDEBAR - NAVIGATION (Simplified) -->
   <aside class="sidebar-left">
-    <!-- Navigation Menu -->
     <nav class="sidebar-nav">
+      <!-- Main Navigation -->
       <div class="nav-section">
         <div class="nav-item active">
-          <span class="nav-icon">🏠</span>
-          <span class="nav-label">Dashboard</span>
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Profile</span>
         </div>
         <div class="nav-item">
           <span class="nav-icon">👨‍⚕️</span>
@@ -71,12 +69,45 @@
 
       <div class="nav-divider"></div>
 
+      <!-- Services Section -->
       <div class="nav-section">
         <div class="nav-label-header">Services</div>
-        <div class="nav-item">
-          <span class="nav-icon">🔗</span>
-          <span class="nav-label">CareNexus Connect</span>
+
+        <!-- CareNexus Expandable Menu -->
+        <div class="nav-item expandable" [class.expanded]="isCareNexusExpanded" (click)="toggleCareNexus()">
+          <span class="nav-icon">🏥</span>
+          <span class="nav-label">CareNexus</span>
+          <span class="expand-icon" [class.open]="isCareNexusExpanded">▶</span>
         </div>
+
+        <!-- CareNexus Sub-items -->
+        <div class="nav-submenu" [class.visible]="isCareNexusExpanded">
+          <div class="nav-item sub-item">
+            <span class="nav-icon">🏥</span>
+            <span class="nav-label">Direct</span>
+          </div>
+          <div class="nav-item sub-item">
+            <span class="nav-icon">👨‍👩‍👧‍👦</span>
+            <span class="nav-label">Proxy</span>
+          </div>
+          <div class="nav-item sub-item">
+            <span class="nav-icon">🚑</span>
+            <span class="nav-label">Urgent</span>
+          </div>
+          <div class="nav-item sub-item">
+            <span class="nav-icon">🤖</span>
+            <span class="nav-label">Companion</span>
+          </div>
+          <div class="nav-item sub-item">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">Claims</span>
+          </div>
+          <div class="nav-item sub-item">
+            <span class="nav-icon">📚</span>
+            <span class="nav-label">Learn</span>
+          </div>
+        </div>
+
         <div class="nav-item">
           <span class="nav-icon">🚑</span>
           <span class="nav-label">Emergency Services</span>
@@ -85,14 +116,11 @@
           <span class="nav-icon">👨‍👩‍👧‍👦</span>
           <span class="nav-label">Family Care</span>
         </div>
-        <div class="nav-item">
-          <span class="nav-icon">📚</span>
-          <span class="nav-label">Health Learning</span>
-        </div>
       </div>
 
       <div class="nav-divider"></div>
 
+      <!-- Settings Section -->
       <div class="nav-section">
         <div class="nav-item">
           <span class="nav-icon">⚙️</span>
@@ -119,14 +147,14 @@
   <!-- MAIN CONTENT -->
   <main class="main-content">
 
-    <!-- Welcome Banner with Stats -->
+    <!-- Welcome Banner Section -->
     <section class="welcome-banner">
       <div class="banner-content">
-        <div class="banner-text">
+        <div class="banner-left">
           <div class="banner-avatar" [style.background-color]="getAvatarColor()">
             {{ getInitials() }}
           </div>
-          <div class="banner-info">
+          <div class="banner-text">
             <h1>Welcome back, {{ currentUser?.fullName?.split(' ')[0] }}</h1>
             <p>You're here to help. Please let us know what you need.</p>
           </div>
@@ -148,23 +176,7 @@
       </div>
     </section>
 
-    <!-- Hero Carousel Section -->
-    <section class="carousel-section">
-      <div class="carousel-wrapper">
-        <div class="carousel-slide">
-          <img src="assets/images/healthcare-tech.jpg" alt="Healthcare Technology" class="carousel-image">
-          <div class="carousel-overlay"></div>
-          <div class="carousel-label">
-            <h3>Quality Healthcare at Your Fingertips</h3>
-            <p>Connect with trusted medical professionals</p>
-          </div>
-        </div>
-        <button class="carousel-btn prev">❮</button>
-        <button class="carousel-btn next">❯</button>
-      </div>
-    </section>
-
-    <!-- Suggested Services Grid -->
+    <!-- Services Grid Section -->
     <section class="services-section">
       <div class="section-header">
         <h2>Explore Our Services</h2>
@@ -187,82 +199,6 @@
         </div>
       </div>
     </section>
+
   </main>
-
-  <!-- RIGHT SIDEBAR - USER PANEL -->
-  <aside class="sidebar-right">
-    <!-- User Profile Card -->
-    <div class="user-profile-card">
-      <div class="profile-header">
-        <div class="profile-avatar-large" [style.background-color]="getAvatarColor()">
-          {{ getInitials() }}
-        </div>
-        <div class="profile-details">
-          <h3>{{ currentUser?.fullName }}</h3>
-          <p class="role-badge">👤 Patient</p>
-          <p class="email">{{ currentUser?.email }}</p>
-        </div>
-      </div>
-      <div class="profile-actions">
-        <button class="btn-primary-small" (click)="handleQuickAction('editProfile')">Edit Profile</button>
-        <button class="btn-secondary-small" (click)="handleQuickAction('settings')">Settings</button>
-      </div>
-    </div>
-
-    <!-- My Items Panel -->
-    <div class="panel-card">
-      <div class="panel-header">
-        <h3>My Requests</h3>
-        <span class="badge-count">6</span>
-      </div>
-      <div class="items-list">
-        <div *ngFor="let activity of recentActivity" class="item-row" [ngClass]="'status-' + activity.status">
-          <span class="item-icon">{{ activity.icon }}</span>
-          <div class="item-info">
-            <p class="item-title">{{ activity.title }}</p>
-            <p class="item-date">{{ activity.date }}</p>
-          </div>
-          <span class="status-label" [ngClass]="'status-' + activity.status">{{ activity.status }}</span>
-        </div>
-      </div>
-      <a href="#" class="view-all">View All →</a>
-    </div>
-
-    <!-- Quick Actions Panel -->
-    <div class="panel-card quick-actions-panel">
-      <div class="panel-header">
-        <h3>Quick Actions</h3>
-      </div>
-      <div class="quick-actions-vertical">
-        <button class="quick-action-item" (click)="handleQuickAction('appointments')">
-          <span>📅</span>
-          <span>My Appointments</span>
-        </button>
-        <button class="quick-action-item" (click)="handleQuickAction('messages')">
-          <span>💬</span>
-          <span>Messages</span>
-        </button>
-        <button class="quick-action-item" (click)="handleQuickAction('editProfile')">
-          <span>✏️</span>
-          <span>Edit Profile</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Health Stats Panel -->
-    <div class="panel-card stats-panel">
-      <div class="panel-header">
-        <h3>Health Stats</h3>
-      </div>
-      <div class="stats-vertical">
-        <div *ngFor="let stat of stats" class="stat-item">
-          <span class="stat-icon" [style.color]="stat.color">{{ stat.icon }}</span>
-          <div class="stat-info">
-            <p class="stat-label">{{ stat.label }}</p>
-            <p class="stat-value">{{ stat.value }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </aside>
 </div>

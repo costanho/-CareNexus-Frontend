@@ -41,6 +41,9 @@ export class PatientProfileLandingComponent implements OnInit, OnDestroy {
   currentRole: string | null = null;
   destroy$ = new Subject<void>();
 
+  // Navigation state
+  isCareNexusExpanded: boolean = false;
+
   // Mobile & Ionic Platform Detection
   isMobileDevice: boolean = false;
   isIonicApp: boolean = false;
@@ -231,6 +234,15 @@ export class PatientProfileLandingComponent implements OnInit, OnDestroy {
       default:
         console.warn('[PatientProfileLanding] Unknown action:', action);
     }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SECTION 4.5: NAVIGATION TOGGLES
+  // ─────────────────────────────────────────────────────────────────────────
+
+  toggleCareNexus(): void {
+    this.isCareNexusExpanded = !this.isCareNexusExpanded;
+    console.log('[PatientProfileLanding] CareNexus menu expanded:', this.isCareNexusExpanded);
   }
 
   // ─────────────────────────────────────────────────────────────────────────

@@ -1,133 +1,204 @@
-<div class="scrollable-wrapper">
-  <!-- PROFILE SECTION -->
-  <div class="profile-section">
-  <div class="profile-container">
-    <!-- Profile Card -->
-    <div class="profile-card">
-      <!-- Avatar -->
-      <div class="profile-avatar" [style.background-color]="getAvatarColor()">
-        {{ getInitials() }}
-      </div>
-
-      <!-- Profile Info -->
-      <div class="profile-info">
-        <h1>Dr. {{ currentUser?.fullName }}</h1>
-        <p class="profile-email">{{ specialty }}</p>
-        <div class="role-badge">
-          <span class="badge-icon">⚕️</span>
-          <span class="badge-text">Doctor</span>
-        </div>
-      </div>
-
-      <!-- Profile Actions -->
-      <div class="profile-actions">
-        <button class="btn-edit" (click)="handleQuickAction('editProfile')">
-          Edit Profile
-        </button>
-        <button class="btn-settings" (click)="handleQuickAction('settings')">
-          Settings
-        </button>
-      </div>
-    </div>
-
-    <!-- Quick Stats -->
-    <div class="stats-grid">
-      <div *ngFor="let stat of stats" class="stat-card">
-        <div class="stat-icon" [style.color]="stat.color">
-          {{ stat.icon }}
-        </div>
-        <div class="stat-content">
-          <div class="stat-value">{{ stat.value }}</div>
-          <div class="stat-label">{{ stat.label }}</div>
-        </div>
-      </div>
+<!-- TOP NAVIGATION BAR - Clean & Minimal -->
+<nav class="top-navbar">
+  <div class="navbar-left">
+    <div class="navbar-brand">
+      <img src="assets/images/carenexus-logo.svg" alt="CareNexus Logo" class="brand-logo-img">
+      <span class="brand-text">CareNexus</span>
     </div>
   </div>
-</div>
 
-<!-- QUICK ACTIONS SECTION -->
-<div class="quick-actions-section">
-  <div class="quick-actions-container">
-    <h2>Quick Access</h2>
-    <div class="quick-actions-grid">
-      <button *ngFor="let action of quickActions"
-              class="quick-action-btn"
-              (click)="handleQuickAction(action.action)">
-        <span class="action-icon">{{ action.icon }}</span>
-        <span class="action-label">{{ action.label }}</span>
+  <div class="navbar-center">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Type in to Search...">
+    </div>
+  </div>
+
+  <div class="navbar-right">
+    <div class="notification-badges">
+      <button class="icon-btn notification">
+        <span class="badge">5</span>
+        <span class="icon">📅</span>
+        <span class="label">Appointment</span>
+      </button>
+      <button class="icon-btn">
+        <span class="badge">3</span>
+        <span class="icon">📧</span>
+        <span class="label">Messages</span>
       </button>
     </div>
-  </div>
-</div>
-
-<!-- SERVICES SECTION -->
-<div class="services-section">
-  <div class="services-container">
-    <div class="section-header">
-      <h2>Available Services</h2>
-      <p>Manage your practice</p>
-    </div>
-
-    <!-- Services Grid -->
-    <div class="services-grid">
-      <div *ngFor="let service of availableServices"
-           class="service-card"
-           (click)="selectService(service)">
-
-        <!-- Card Header with Icon -->
-        <div class="card-header">
-          <span class="service-icon">{{ service.icon }}</span>
-          <h3>{{ service.name }}</h3>
-        </div>
-
-        <!-- Card Description -->
-        <p class="service-description">
-          {{ service.description }}
-        </p>
-
-        <!-- Card Features List -->
-        <div class="service-features">
-          <ul>
-            <li *ngFor="let feature of service.features">
-              <span class="feature-check">✓</span>
-              {{ feature }}
-            </li>
-          </ul>
-        </div>
-
-        <!-- Card Action Button -->
-        <div class="card-footer">
-          <button class="btn-select">
-            Get Started →
-          </button>
-        </div>
+    <div class="user-profile-header">
+      <div class="user-avatar" [style.background-color]="getAvatarColor()">
+        {{ getInitials() }}
+      </div>
+      <div class="user-info">
+        <p class="user-name">Dr. {{ currentUser?.fullName }}</p>
+        <p class="user-role">Doctor</p>
       </div>
     </div>
   </div>
-</div>
+</nav>
 
-<!-- RECENT PATIENTS SECTION -->
-<div class="recent-section">
-  <div class="recent-container">
-    <div class="section-header">
-      <h2>Recent Patients</h2>
-      <p>Your active patient list</p>
-    </div>
+<div class="dashboard-container">
+  <!-- LEFT SIDEBAR - NAVIGATION (Simplified) -->
+  <aside class="sidebar-left">
+    <nav class="sidebar-nav">
+      <!-- Main Navigation -->
+      <div class="nav-section">
+        <div class="nav-item active">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Profile</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📅</span>
+          <span class="nav-label">My Appointments</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label">My Patients</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">💬</span>
+          <span class="nav-label">Messages</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">Medical Records</span>
+        </div>
+      </div>
 
-    <div class="patients-grid">
-      <div *ngFor="let patient of recentPatients" class="patient-card" [ngClass]="'status-' + patient.statusType">
-        <div class="patient-header">
-          <div class="patient-info">
-            <h4>{{ patient.name }}</h4>
-            <p class="patient-visit">{{ patient.lastVisit }}</p>
+      <div class="nav-divider"></div>
+
+      <!-- Services Section -->
+      <div class="nav-section">
+        <div class="nav-label-header">Services</div>
+
+        <!-- CareNexus Expandable Menu -->
+        <div class="nav-item expandable" [class.expanded]="isCareNexusExpanded" (click)="toggleCareNexus()">
+          <span class="nav-icon">🏥</span>
+          <span class="nav-label">CareNexus</span>
+          <span class="expand-icon" [class.open]="isCareNexusExpanded">▶</span>
+        </div>
+
+        <!-- CareNexus Sub-items -->
+        <div class="nav-submenu" [class.visible]="isCareNexusExpanded">
+          <div class="nav-item sub-item">
+            <span class="nav-icon">🏥</span>
+            <span class="nav-label">Direct</span>
           </div>
-          <div class="patient-icon">{{ patient.icon }}</div>
+          <div class="nav-item sub-item">
+            <span class="nav-icon">👨‍👩‍👧‍👦</span>
+            <span class="nav-label">Proxy</span>
+          </div>
+          <div class="nav-item sub-item">
+            <span class="nav-icon">🚑</span>
+            <span class="nav-label">Urgent</span>
+          </div>
+          <div class="nav-item sub-item">
+            <span class="nav-icon">🤖</span>
+            <span class="nav-label">Companion</span>
+          </div>
+          <div class="nav-item sub-item">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">Claims</span>
+          </div>
+          <div class="nav-item sub-item">
+            <span class="nav-icon">📚</span>
+            <span class="nav-label">Learn</span>
+          </div>
         </div>
-        <div class="patient-status">
-          <span class="status-badge">{{ patient.status }}</span>
+
+        <div class="nav-item">
+          <span class="nav-icon">🔗</span>
+          <span class="nav-label">Connect</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Analytics</span>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+
+      <div class="nav-divider"></div>
+
+      <!-- Settings Section -->
+      <div class="nav-section">
+        <div class="nav-item">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Settings</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">🔒</span>
+          <span class="nav-label">Privacy & Security</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">❓</span>
+          <span class="nav-label">Help & Support</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Chat Button -->
+    <button class="chat-btn">
+      <span>💬</span>
+      Chat with us
+    </button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- Welcome Banner Section -->
+    <section class="welcome-banner">
+      <div class="banner-content">
+        <div class="banner-left">
+          <div class="banner-avatar" [style.background-color]="getAvatarColor()">
+            {{ getInitials() }}
+          </div>
+          <div class="banner-text">
+            <h1>Welcome back, Dr. {{ currentUser?.fullName?.split(' ')[0] }}</h1>
+            <p>Manage your practice and connect with patients efficiently.</p>
+          </div>
+        </div>
+        <div class="banner-stats">
+          <div class="stat-box">
+            <span class="stat-number">{{ stats[0].value }}</span>
+            <span class="stat-label">Appointments</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">{{ stats[1].value }}</span>
+            <span class="stat-label">Patients</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">{{ stats[2].value }}</span>
+            <span class="stat-label">Messages</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Grid Section -->
+    <section class="services-section">
+      <div class="section-header">
+        <h2>Explore Our Services</h2>
+        <p>Find the tools you need to manage your practice</p>
+      </div>
+
+      <div class="services-grid">
+        <div *ngFor="let service of availableServices" class="service-card" (click)="selectService(service)">
+          <div class="card-header-section">
+            <span class="service-icon">{{ service.icon }}</span>
+            <h3>{{ service.name }}</h3>
+          </div>
+          <p class="service-description">{{ service.description }}</p>
+          <div class="service-features">
+            <span *ngFor="let feature of service.features.slice(0, 2)" class="feature-tag">
+              ✓ {{ feature }}
+            </span>
+          </div>
+          <button class="btn-details">View Details</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
 </div>
