@@ -6,38 +6,56 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private readonly BASE_URL = 'http://localhost:8081/api';
+  // Microservice endpoints
+  private readonly DIRECT_SERVICE_URL = 'http://localhost:8081/api';      // Doctors, Patients, Appointments
+  private readonly AUTH_SERVICE_URL = 'http://localhost:8082/api';        // Authentication, JWT
 
   constructor(private http: HttpClient) {}
 
   /**
-   * GET request
+   * Determine which service URL to use based on endpoint
+   * Auth endpoints (/auth/...) → Auth Service (8082)
+   * All other endpoints → Direct Service (8081)
+   */
+  private getBaseUrl(endpoint: string): string {
+    if (endpoint.startsWith('/auth')) {
+      return this.AUTH_SERVICE_URL;
+    }
+    return this.DIRECT_SERVICE_URL;
+  }
+
+  /**
+   * GET request - Auto-routes to correct microservice
    */
   get<T>(endpoint: string, params?: any): Observable<T> {
-    return this.http.get<T>(`${this.BASE_URL}${endpoint}`, {
+    const baseUrl = this.getBaseUrl(endpoint);
+    return this.http.get<T>(`${baseUrl}${endpoint}`, {
       params: this.buildParams(params)
     });
   }
 
   /**
-   * POST request
+   * POST request - Auto-routes to correct microservice
    */
   post<T>(endpoint: string, body: any): Observable<T> {
-    return this.http.post<T>(`${this.BASE_URL}${endpoint}`, body);
+    const baseUrl = this.getBaseUrl(endpoint);
+    return this.http.post<T>(`${baseUrl}${endpoint}`, body);
   }
 
   /**
-   * PUT request
+   * PUT request - Auto-routes to correct microservice
    */
   put<T>(endpoint: string, body: any): Observable<T> {
-    return this.http.put<T>(`${this.BASE_URL}${endpoint}`, body);
+    const baseUrl = this.getBaseUrl(endpoint);
+    return this.http.put<T>(`${baseUrl}${endpoint}`, body);
   }
 
   /**
-   * DELETE request
+   * DELETE request - Auto-routes to correct microservice
    */
   delete<T>(endpoint: string): Observable<T> {
-    return this.http.delete<T>(`${this.BASE_URL}${endpoint}`);
+    const baseUrl = this.getBaseUrl(endpoint);
+    return this.http.delete<T>(`${baseUrl}${endpoint}`);
   }
 
   /**
